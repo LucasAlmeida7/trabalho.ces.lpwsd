@@ -1,8 +1,5 @@
 package trabalho.ces.trabalho.ces.backend.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModelProperty;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -16,40 +13,34 @@ public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "Id do usuário")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idUsuario")
     private Long idUsuario;
 
-    @ApiModelProperty(value = "Nome do usuário")
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "nomeUsuario")
     private String nomeUsuario;
 
-    @ApiModelProperty(value = "E-mail do usuário")
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "emailUsuario")
     private String emailUsuario;
 
-    @ApiModelProperty(value = "Senha do usuário")
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "senhaUsuario")
     private String senhaUsuario;
 
-    @ApiModelProperty(value = "Tipo do usuário")
     @JoinColumn(name = "tbTipoUsuario_idTipoUsuario", referencedColumnName = "idTipoUsuario")
     @ManyToOne(optional = false)
     private TipoUsuario tipoUsuarioidTipoUsuario;
 
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioidUsuario")
     private List<Resultado> resultadoList;
 
