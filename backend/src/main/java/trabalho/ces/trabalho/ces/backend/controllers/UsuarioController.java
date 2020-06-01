@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import trabalho.ces.trabalho.ces.backend.classmappers.UsuarioMapper;
 import trabalho.ces.trabalho.ces.backend.models.Usuario;
 import trabalho.ces.trabalho.ces.backend.repositories.UsuarioRepository;
-import trabalho.ces.trabalho.ces.backend.viewmodels.InserirUsuarioViewModel;
-import trabalho.ces.trabalho.ces.backend.viewmodels.UsuarioViewModel;
+import trabalho.ces.trabalho.ces.backend.viewmodels.Usuario.InserirUsuarioViewModel;
+import trabalho.ces.trabalho.ces.backend.viewmodels.Usuario.UsuarioViewModel;
 
 import java.util.List;
 
@@ -33,6 +33,7 @@ public class UsuarioController {
         return usuarioRepository.findById(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:8081")
     @PostMapping("/usuario")
     public Usuario InserirUsuario(@RequestBody InserirUsuarioViewModel inserirUsuarioViewModel) {
         return usuarioRepository.save(usuarioMapper.ToNewModel(inserirUsuarioViewModel));
@@ -47,5 +48,10 @@ public class UsuarioController {
     public void AtualizaUsuario(@RequestBody UsuarioViewModel usuarioViewModel) {
         Usuario usuario = usuarioRepository.findById(usuarioViewModel.getIdUsuario());
         usuarioRepository.save(usuarioMapper.ToModel(usuario, usuarioViewModel));
+    }
+
+    @GetMapping("/usuario/login/")
+    public Usuario Login(@PathVariable(value="id") long id){
+        return usuarioRepository.findById(id);
     }
 }

@@ -1,4 +1,4 @@
-package trabalho.ces.trabalho.ces.backend.viewmodels;
+package trabalho.ces.trabalho.ces.backend.viewmodels.Usuario;
 
 import io.swagger.annotations.ApiModelProperty;
 

@@ -2,8 +2,8 @@ package trabalho.ces.trabalho.ces.backend.classmappers;
 
 import trabalho.ces.trabalho.ces.backend.models.TipoUsuario;
 import trabalho.ces.trabalho.ces.backend.models.Usuario;
-import trabalho.ces.trabalho.ces.backend.viewmodels.InserirUsuarioViewModel;
-import trabalho.ces.trabalho.ces.backend.viewmodels.UsuarioViewModel;
+import trabalho.ces.trabalho.ces.backend.viewmodels.Usuario.InserirUsuarioViewModel;
+import trabalho.ces.trabalho.ces.backend.viewmodels.Usuario.UsuarioViewModel;
 
 public class UsuarioMapper {
 
