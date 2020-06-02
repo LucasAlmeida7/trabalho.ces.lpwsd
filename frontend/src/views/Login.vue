@@ -6,18 +6,16 @@
     
     <div class="login-section">
       <span class="login-field">E-mail: </span>
-      <input name="email" type="text">
+      <input name="email" type="text" v-model="email" >
     </div>
     
     <div class="login-section">
       <span class="login-field">Senha: </span>
-      <input name="senha" type="password">
+      <input name="senha" type="password" v-model="senha">
     </div>
     
     <div class="login-section">
-      <router-link to="/home">
-        <button value="Login">Login</button>
-      </router-link>
+      <button value="Login" @click="loginUsuario">Login</button>
     </div>
     
     <hr>
@@ -26,16 +24,37 @@
     <router-link to="/cadastrar-usuario">
       <button value="Cadastrar">Cadastrar</button>
     </router-link>
-
+    <p>{{ mensagem }}</p>
   </div>
 </template>
 
 <script>
+import Http from '@/plugins/axios'
+import router from '@/router'
 
 export default {
   name: 'login',
-  components: {
-    
+  data(){
+		return {
+      email: '',
+      senha: '',
+      mensagem: ''
+		}
+	},
+  methods: {
+    loginUsuario() {
+      Http.post('usuario/login/', {
+        emailUsuario: this.email,
+        senhaUsuario: this.senha,
+      }).then(res => {
+        if(res.data != ''){
+          router.push('home')
+        }
+        this.mensagem = 'Usuário ou senha inválidos!'
+      }).catch(err => {
+        console.log('Erro', err.response);
+      })
+    }
   }
 }
 </script>

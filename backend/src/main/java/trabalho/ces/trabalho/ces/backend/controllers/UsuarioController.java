@@ -6,6 +6,7 @@ import trabalho.ces.trabalho.ces.backend.classmappers.UsuarioMapper;
 import trabalho.ces.trabalho.ces.backend.models.Usuario;
 import trabalho.ces.trabalho.ces.backend.repositories.UsuarioRepository;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Usuario.InserirUsuarioViewModel;
+import trabalho.ces.trabalho.ces.backend.viewmodels.Usuario.LoginUsuarioViewModel;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Usuario.UsuarioViewModel;
 
 import java.util.List;
@@ -50,8 +51,10 @@ public class UsuarioController {
         usuarioRepository.save(usuarioMapper.ToModel(usuario, usuarioViewModel));
     }
 
-    @GetMapping("/usuario/login/")
-    public Usuario Login(@PathVariable(value="id") long id){
-        return usuarioRepository.findById(id);
+    @CrossOrigin(origins = "http://localhost:8081")
+    @PostMapping("/usuario/login/")
+    public Usuario Login(@RequestBody LoginUsuarioViewModel loginUsuarioViewModel){
+        Usuario usuario = usuarioRepository.findFirstByEmailUsuarioAndSenhaUsuario(loginUsuarioViewModel.getEmailUsuario(), loginUsuarioViewModel.getSenhaUsuario());
+        return usuario;
     }
 }
