@@ -1,0 +1,27 @@
+<div class="page">
+    <HeaderApp />
+    <h3>Cadastrar Usuário</h3>
+    <div class="box">
+      <span>Nome: </span>
+      <input type="text" name="nome" v-model="nome">
+    </div>
+
+    <div class="box">
+      <span>Email: </span>
+      <input type="email" name="email" v-model="email">
+    </div>
+
+    <div class="box">
+      <span>Senha: </span>
+      <input type="password" name="senha" v-model="senha">
+    </div>
+
+    <div class="box">
+      <span>Repetir Senha: </span>
+      <input type="password" name="RepetirSenha">
+    </div>
+
+    <div class="box">
+      <button @click="cadastrarUsuario()">Cadastrar</button>
+    </div>
+  </div>

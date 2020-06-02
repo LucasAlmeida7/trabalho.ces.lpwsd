@@ -1,7 +1,11 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+  <v-app>
+    <main>
+      <v-content>
+          <router-view />
+      </v-content>
+    </main>
+  </v-app>
 </template>
 
 <style>
@@ -12,3 +16,5 @@
   color: #2c3e50;
 }
 </style>
+
+
