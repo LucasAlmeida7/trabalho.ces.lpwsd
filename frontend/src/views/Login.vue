@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import vm from 'vue'
 import Http from '@/plugins/axios'
 import router from '@/router'
 
@@ -50,7 +51,10 @@ export default {
         if(res.data != ''){
           router.push('home')
         }
-        this.mensagem = 'Usuário ou senha inválidos!'
+        vm.$toast.open({
+          message: 'Usuário ou senha inválidos!',
+          type: 'warning',
+        })
       }).catch(err => {
         console.log('Erro', err.response);
       })
