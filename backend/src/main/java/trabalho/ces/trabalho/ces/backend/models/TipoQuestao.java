@@ -21,7 +21,7 @@ public class TipoQuestao implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idTipoQuestao")
-    private Integer idTipoQuestao;
+    private Long idTipoQuestao;
 
     @ApiModelProperty(value = "Nome do tipo de questão")
     @Basic(optional = false)
@@ -37,20 +37,20 @@ public class TipoQuestao implements Serializable {
     public TipoQuestao() {
     }
 
-    public TipoQuestao(Integer idTipoQuestao) {
+    public TipoQuestao(Long idTipoQuestao) {
         this.idTipoQuestao = idTipoQuestao;
     }
 
-    public TipoQuestao(Integer idTipoQuestao, String nomeTipoQuestaocol) {
+    public TipoQuestao(Long idTipoQuestao, String nomeTipoQuestaocol) {
         this.idTipoQuestao = idTipoQuestao;
         this.nomeTipoQuestao = nomeTipoQuestaocol;
     }
 
-    public Integer getIdTipoQuestao() {
+    public Long getIdTipoQuestao() {
         return idTipoQuestao;
     }
 
-    public void setIdTipoQuestao(Integer idTipoQuestao) {
+    public void setIdTipoQuestao(Long idTipoQuestao) {
         this.idTipoQuestao = idTipoQuestao;
     }
 

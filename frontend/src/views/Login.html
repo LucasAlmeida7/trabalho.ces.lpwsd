@@ -8,28 +8,22 @@
             <v-divider class="my-6"></v-divider>
 
             <v-flex xs12 sm12 m12 class="mx-10">
-                <v-flex xs4 sm4 m4 class="login-box">
+                <v-flex xs4 sm4 m4 class="form-box">
                     <h5>Bem vindo ao Simulado Enade, acesse com:</h5>
-
-                    <div class="login-section">
-                        <v-text-field id="email" label="E-mail" v-model="email" :rules="rules"></v-text-field>
-                    </div>
-
-                    <div class="login-section">
-                        <v-text-field id="senha" label="Senha" v-model="senha" :rules="rules"></v-text-field>
-                    </div>
-
-                    <div class="login-section">
-                        <v-btn depressed small color="primary" class="elevation-3" @click="loginUsuario">ENTRAR</v-btn>
-                    </div>
+                    <v-text-field id="email" label="E-mail" v-model="email" :rules="rules"></v-text-field>
+                    <v-text-field id="senha" label="Senha" v-model="senha" :rules="rules"
+                        :append-icon="exibirSenha ? 'mdi-eye' : 'mdi-eye-off'" :type="exibirSenha ? 'text' : 'password'"
+                        @click:append="exibirSenha = !exibirSenha"></v-text-field>
+                    <v-btn depressed small color="primary" class="elevation-3" @click="loginUsuario">ENTRAR</v-btn>
                 </v-flex>
             </v-flex>
 
             <v-divider class="my-6"></v-divider>
 
             <v-flex xs12 sm12 m12>
-                <h5>Não possui cadastro? </h5>
-                <v-btn depressed small outlined color="black" class="elevation-3" @click="cadastrar">CLIQUE AQUI PARA CADASTRAR</v-btn>
+                <h5 class="my-3">Não possui cadastro? </h5>
+                <v-btn depressed small outlined color="black" class="elevation-3" @click="cadastrar">CLIQUE AQUI PARA
+                    CADASTRAR</v-btn>
             </v-flex>
         </v-flex>
     </v-layout>

@@ -2,7 +2,9 @@ package trabalho.ces.trabalho.ces.backend.viewmodels.Usuario;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class InserirUsuarioViewModel {
+public class OutputUsuarioViewModel {
+    @ApiModelProperty(value = "Id do usuário")
+    private long idUsuario;
 
     @ApiModelProperty(value = "Nome do usuário")
     private String nomeUsuario;
@@ -16,6 +18,13 @@ public class InserirUsuarioViewModel {
     @ApiModelProperty(value = "Id tipo do usuário")
     private int idTipoUsuario;
 
+    public long getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(long idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
     public String getNomeUsuario() {
         return nomeUsuario;

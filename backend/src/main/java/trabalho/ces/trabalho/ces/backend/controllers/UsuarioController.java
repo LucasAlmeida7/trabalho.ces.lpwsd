@@ -1,59 +1,84 @@
 package trabalho.ces.trabalho.ces.backend.controllers;
 
+import com.google.common.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import trabalho.ces.trabalho.ces.backend.classmappers.UsuarioMapper;
+import trabalho.ces.trabalho.ces.backend.classmappers.MapperBase;
+import trabalho.ces.trabalho.ces.backend.classmappers.UsuarioIO;
 import trabalho.ces.trabalho.ces.backend.models.Usuario;
 import trabalho.ces.trabalho.ces.backend.repositories.UsuarioRepository;
-import trabalho.ces.trabalho.ces.backend.viewmodels.Usuario.InserirUsuarioViewModel;
+import trabalho.ces.trabalho.ces.backend.viewmodels.Usuario.InputUsuarioViewModel;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Usuario.LoginUsuarioViewModel;
-import trabalho.ces.trabalho.ces.backend.viewmodels.Usuario.UsuarioViewModel;
+import trabalho.ces.trabalho.ces.backend.viewmodels.Usuario.OutputUsuarioViewModel;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("value=/api")
+@RequestMapping("usuario-manager")
 public class UsuarioController {
 
-    UsuarioMapper usuarioMapper;
-
     public UsuarioController(){
-        usuarioMapper = new UsuarioMapper();
     }
 
     @Autowired
     UsuarioRepository usuarioRepository;
 
+    @Autowired
+    MapperBase mapperBase;
+
+    @Autowired
+    UsuarioIO usuarioIO;
+
+    @CrossOrigin(origins = "http://localhost:8081")
     @GetMapping("/usuarios")
-    public List<Usuario> Usuarios(){
-        return usuarioRepository.findAll();
+    public List<OutputUsuarioViewModel> BuscarUsuarios(){
+        Type type = new TypeToken<ArrayList<OutputUsuarioViewModel>>() {}.getType();
+        List<OutputUsuarioViewModel> result = mapperBase.toList(usuarioRepository.findAll(), type);
+        return result;
     }
 
+    @CrossOrigin(origins = "http://localhost:8081")
     @GetMapping("/usuario/{id}")
-    public Usuario Usuario(@PathVariable(value="id") long id){
-        return usuarioRepository.findById(id);
+    public OutputUsuarioViewModel BuscarUsuario(@PathVariable(value="id") long id){
+        return mapperBase.mapTo(usuarioRepository.findById(id), OutputUsuarioViewModel.class);
     }
 
     @CrossOrigin(origins = "http://localhost:8081")
     @PostMapping("/usuario")
-    public Usuario InserirUsuario(@RequestBody InserirUsuarioViewModel inserirUsuarioViewModel) {
-        return usuarioRepository.save(usuarioMapper.ToNewModel(inserirUsuarioViewModel));
+    public InputUsuarioViewModel InserirUsuario(@RequestBody InputUsuarioViewModel inputUsuarioViewModel) {
+        Usuario usuario = usuarioIO.mapTo(inputUsuarioViewModel);
+        usuarioRepository.save(usuario);
+        return inputUsuarioViewModel;
     }
 
+    @CrossOrigin(origins = "http://localhost:8081")
     @DeleteMapping("/usuario/{id}")
     public void RemoverUsuario(@PathVariable(value="id") long id){
         usuarioRepository.deleteById(id);
     }
 
-    @PutMapping("/usuario")
-    public void AtualizaUsuario(@RequestBody UsuarioViewModel usuarioViewModel) {
-        Usuario usuario = usuarioRepository.findById(usuarioViewModel.getIdUsuario());
-        usuarioRepository.save(usuarioMapper.ToModel(usuario, usuarioViewModel));
+    @CrossOrigin(origins = "http://localhost:8081")
+    @PutMapping("/usuario/{id}")
+    public void AtualizaUsuario(@PathVariable(value="id") long id, @RequestBody InputUsuarioViewModel inputUsuarioViewModel) {
+        Usuario usuarioId = usuarioRepository.findById(id);
+
+        if (usuarioId == null) {
+            throw new IllegalArgumentException();
+        }
+        if (usuarioId.getIdUsuario() != id) {
+            throw new IllegalArgumentException();
+        }
+
+        Usuario usuario = usuarioIO.mapTo(inputUsuarioViewModel);
+        usuario.setIdUsuario(id);
+        usuarioRepository.save(usuario);
     }
 
     @CrossOrigin(origins = "http://localhost:8081")
     @PostMapping("/usuario/login/")
-    public Usuario Login(@RequestBody LoginUsuarioViewModel loginUsuarioViewModel){
+    public Usuario LoginUsuario(@RequestBody LoginUsuarioViewModel loginUsuarioViewModel){
         Usuario usuario = usuarioRepository.findFirstByEmailUsuarioAndSenhaUsuario(loginUsuarioViewModel.getEmailUsuario(), loginUsuarioViewModel.getSenhaUsuario());
         return usuario;
     }

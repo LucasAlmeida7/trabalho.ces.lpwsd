@@ -16,60 +16,49 @@ public class Questao implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "Id da questão")
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "idQuestao")
-    private Integer idQuestao;
+    private Long idQuestao;
 
-    @ApiModelProperty(value = "Descrição da questão")
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "descricaoQuestao")
     private String descricaoQuestao;
 
-    @ApiModelProperty(value = "Alternativa A da questão")
     @Size(max = 45)
     @Column(name = "alternativaA")
     private String alternativaA;
 
-    @ApiModelProperty(value = "Alternativa B da questão")
     @Size(max = 45)
     @Column(name = "alternativaB")
     private String alternativaB;
 
-    @ApiModelProperty(value = "Alternativa C da questão")
     @Size(max = 45)
     @Column(name = "alternativaC")
     private String alternativaC;
 
-    @ApiModelProperty(value = "Alternativa D da questão")
     @Size(max = 45)
     @Column(name = "alternativaD")
     private String alternativaD;
 
-    @ApiModelProperty(value = "Alternativa E da questão")
     @Size(max = 45)
     @Column(name = "alternativaE")
     private String alternativaE;
 
-    @ApiModelProperty(value = "Alternativa correta da questão")
     @Column(name = "alternativaCorreta")
     private Character alternativaCorreta;
 
-    @ApiModelProperty(value = "Estado da questão")
     @Basic(optional = false)
     @NotNull
     @Column(name = "estadoQuestao")
     private short estadoQuestao;
 
-    @JsonIgnore
     @ManyToMany(mappedBy = "questaoList")
     private List<Prova> provaList;
 
-    @ApiModelProperty(value = "Tipo da questão")
     @JoinColumn(name = "tbTipoQuestao_idTipoQuestao", referencedColumnName = "idTipoQuestao")
     @ManyToOne(optional = false)
     private TipoQuestao tipoQuestaoidTipoQuestao;
@@ -77,21 +66,21 @@ public class Questao implements Serializable {
     public Questao() {
     }
 
-    public Questao(Integer idQuestao) {
+    public Questao(Long idQuestao) {
         this.idQuestao = idQuestao;
     }
 
-    public Questao(Integer idQuestao, String descricaoQuestao, short estadoQuestao) {
+    public Questao(Long idQuestao, String descricaoQuestao, short estadoQuestao) {
         this.idQuestao = idQuestao;
         this.descricaoQuestao = descricaoQuestao;
         this.estadoQuestao = estadoQuestao;
     }
 
-    public Integer getIdQuestao() {
+    public Long getIdQuestao() {
         return idQuestao;
     }
 
-    public void setIdQuestao(Integer idQuestao) {
+    public void setIdQuestao(Long idQuestao) {
         this.idQuestao = idQuestao;
     }
 

@@ -1,0 +1,96 @@
+<section>
+    <v-container class="fill-height" fluid>
+        <v-layout class="mx-auto mx-10 text-center">
+            <v-flex md12>
+                <v-data-table :headers="headers" :items="questoes" sort-by="idQuestao" :search="pesquisa"
+                    :sort-by="['descricaoQuestao', 'estadoQuestao']" :sort-desc="[false, true]" dense
+                    class="elevation-4">
+                    <template v-slot:top>
+                        <v-toolbar flat color="white">
+                            <v-toolbar-title>Questões</v-toolbar-title>
+                            <v-divider class="mx-4" inset vertical></v-divider>
+                            <v-spacer></v-spacer>
+                            <v-text-field v-model="pesquisa" append-icon="mdi-magnify" label="Search" single-line
+                                hide-details></v-text-field>
+                            <v-btn depressed small color="primary" dark class="mb-2 ml-6" @click="incluirQuestao">Adicionar +
+                            </v-btn>
+                            <v-dialog v-model="dialog" max-width="700px">
+                                <v-card>
+                                    <v-card-title>
+                                        <v-row>
+                                            <v-col cols="6" sm="6" md="6">
+                                                <span class="headline">{{ tituloModal }}</span>
+                                            </v-col>
+                                            <v-col cols="6" sm="6" md="6" align-right>
+                                                <v-chip v-show="!inclusao" color="red" dark>ID: {{ questao.idQuestao }}
+                                                </v-chip>
+                                            </v-col>
+                                        </v-row>
+                                    </v-card-title>
+                                    <v-card-text>
+                                        <v-container>
+                                            <v-row>
+                                                <v-col cols="12" sm="12" md="12">
+                                                    <v-text-field v-model="questao.descricaoQuestao" label="Descrição">
+                                                    </v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="6" md="6">
+                                                    <v-text-field v-model="questao.alternativaA" label="Alternativa A">
+                                                    </v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="6" md="6">
+                                                    <v-text-field v-model="questao.alternativaB" label="Alternativa B">
+                                                    </v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="6" md="6">
+                                                    <v-text-field v-model="questao.alternativaC" label="Alternativa C">
+                                                    </v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="6" md="6">
+                                                    <v-text-field v-model="questao.alternativaD" label="Alternativa D">
+                                                    </v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="6" md="6">
+                                                    <v-text-field v-model="questao.alternativaE" label="Alternativa E">
+                                                    </v-text-field>
+                                                </v-col>
+                                                <v-col cols="6" sm="6" md="6"></v-col>
+                                                <v-col cols="6" sm="4" md="4">
+                                                    <v-select :items="['A', 'B', 'C', 'D' , 'E']"
+                                                        v-model="questao.alternativaCorreta"
+                                                        label="Alternativa Correta"></v-select>
+                                                </v-col>
+                                                <v-col cols="6" sm="4" md="4">
+                                                    <v-select :items="estados" item-value="id"
+                                                        item-text="descricao" v-model="questao.estadoQuestao"
+                                                        label="Estado">
+                                                    </v-select>
+                                                </v-col>
+                                                <v-col cols="12" sm="4" md="4">
+                                                    <v-select :items="tiposQuestao" item-value="idTipoQuestao"
+                                                        item-text="descricao" v-model="questao.idTipoQuestao"
+                                                        label="Tipo Questão">
+                                                    </v-select>
+                                                </v-col>
+                                            </v-row>
+                                        </v-container>
+                                    </v-card-text>
+                                    <v-card-actions>
+                                        <v-spacer></v-spacer>
+                                        <v-btn depressed outlined color="error" @click="cancelarModal">Cancel</v-btn>
+                                        <v-btn depressed color="primary" @click="salvarModal">Save</v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
+                        </v-toolbar>
+                    </template>
+                    <template v-slot:item.actions="{ item }">                     
+                        <v-icon small @click="editarQuestao(item.idQuestao)">
+                            mdi-pencil
+                        </v-icon>
+                    </template>
+                </v-data-table>
+            </v-flex>
+        </v-layout>
+    </v-container>
+</section>

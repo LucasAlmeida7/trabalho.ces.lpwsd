@@ -1,0 +1,32 @@
+<v-container class="fill-height" fluid>
+  <v-layout class="mx-auto mx-10 text-center">
+    <v-flex md12>
+      <v-flex xs12 sm12 m12>
+        <h2>CADASTRAR USUÁRIO ALUNO</h2>
+      </v-flex>
+
+      <v-divider class="my-6"></v-divider>
+
+      <v-flex xs12 sm12 m12 class="mx-10">
+        <v-flex xs6 sm6 m6 class="form-box" v-if="!finalizado">
+          <v-text-field id="nome" label="Nome" v-model="usuario.nome" :rules="rules" counter></v-text-field>
+          <v-text-field id="email" label="E-mail" v-model="usuario.email" :rules="rules" counter></v-text-field>
+          <v-text-field id="senha" label="Senha" v-model="usuario.senha" :rules="rules"
+            :append-icon="exibirSenha ? 'mdi-eye' : 'mdi-eye-off'" :type="exibirSenha ? 'text' : 'password'"
+            @click:append="exibirSenha = !exibirSenha" counter></v-text-field>
+          <v-text-field id="repetirSenha" label="Repetir Senha" v-model="usuario.repetirSenha" :rules="rules" counter>
+          </v-text-field>
+          <v-btn depressed small color="error" outlined class="elevation-3 mx-4" @click="navegarLogin">Ir para Login
+          </v-btn>
+          <v-btn depressed small color="primary" class="elevation-3 mx-4" @click="cadastrarUsuario">Confirmar Cadastro
+          </v-btn>
+        </v-flex>
+        <v-flex xs6 sm6 m6 class="form-box" v-else>
+            <h5 class="my-3">Cadastrado realizado com sucesso!</h5>
+            <v-btn depressed small color="primary" outlined class="elevation-3 mx-4" @click="navegarLogin">Ir para Login
+            </v-btn>
+        </v-flex>
+      </v-flex>
+    </v-flex>
+  </v-layout>
+</v-container>

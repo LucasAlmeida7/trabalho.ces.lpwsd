@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Header from "@/components/base/Header.vue";
 
 Vue.use(VueRouter)
   const routes = [
@@ -11,12 +12,25 @@ Vue.use(VueRouter)
   {
     path: '/home',
     name: 'Home',
-    component: () => import('../views/Home.vue')
+    components: {
+      header: Header,
+      default: () => import('../views/Home.vue'),
+    },
   },
   {
     path: '/cadastrar-usuario',
     name: 'CadastrarUsuario',
-    component: () => import('../views/usuario/CadastrarUsuario.vue')
+    components: {
+      default: () => import('../views/aluno/CadastrarUsuario.vue')
+    },
+  },
+  {
+    path: '/questoes',
+    name: 'Questoes',
+    components: {
+      header: Header,
+      default: () => import('../views/administrativo/Questoes.vue')
+    },
   }
 ]
 

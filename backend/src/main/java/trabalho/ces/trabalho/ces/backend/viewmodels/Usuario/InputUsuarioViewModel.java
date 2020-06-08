@@ -2,29 +2,20 @@ package trabalho.ces.trabalho.ces.backend.viewmodels.Usuario;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class UsuarioViewModel {
-    @ApiModelProperty(value = "Id do usuário")
-    private long idUsuario;
+public class InputUsuarioViewModel {
 
-    @ApiModelProperty(value = "Nome do usuário")
+    @ApiModelProperty(value = "Nome do usuário", example = "usuário", required = true)
     private String nomeUsuario;
 
-    @ApiModelProperty(value = "E-mail do usuário")
+    @ApiModelProperty(value = "E-mail do usuário", example = "usuario@usuario.com", required = true)
     private String emailUsuario;
 
-    @ApiModelProperty(value = "Senha do usuário")
+    @ApiModelProperty(value = "Senha do usuário", example = "senhaUsuario", required = true)
     private String senhaUsuario;
 
-    @ApiModelProperty(value = "Id tipo do usuário")
+    @ApiModelProperty(value = "Id tipo do usuário", example = "1", required = true)
     private int idTipoUsuario;
 
-    public long getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(long idUsuario) {
-        this.idUsuario = idUsuario;
-    }
 
     public String getNomeUsuario() {
         return nomeUsuario;

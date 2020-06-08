@@ -18,8 +18,8 @@ public class TipoUsuario implements Serializable {
 
     @ApiModelProperty(value = "Id do tipo de usuário")
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "idTipoUsuario")
     private Integer idTipoUsuario;
 

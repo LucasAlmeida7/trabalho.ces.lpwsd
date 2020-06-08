@@ -4,10 +4,10 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class LoginUsuarioViewModel {
 
-    @ApiModelProperty(value = "E-mail do usuário")
+    @ApiModelProperty(value = "E-mail do usuário", example = "usuário", required = true)
     private String emailUsuario;
 
-    @ApiModelProperty(value = "Senha do usuário")
+    @ApiModelProperty(value = "Senha do usuário", example = "usuário", required = true)
     private String senhaUsuario;
 
     public String getEmailUsuario() {

@@ -12,6 +12,7 @@
         email: '',
         senha: '',
         mensagem: '',
+        exibirSenha: false,
         rules: [
           value => !!value || 'Required.',
           value => (value && value.length >= 3) || 'Min 3 characters',
@@ -20,7 +21,7 @@
     },
     methods: {
       loginUsuario() {
-        Http.post('usuario/login/', {
+        Http.post('usuario-manager/usuario/login/', {
           emailUsuario: this.email,
           senhaUsuario: this.senha,
         }).then(result => {
