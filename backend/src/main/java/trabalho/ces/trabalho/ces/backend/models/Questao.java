@@ -165,6 +165,11 @@ public class Questao implements Serializable {
         this.tipoQuestaoidTipoQuestao = tipoQuestaoidTipoQuestao;
     }
 
+    public String descricaoEstado()
+    {
+        return this.getEstadoQuestao() == 1 ? "Ativada" : "Desativada";
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;

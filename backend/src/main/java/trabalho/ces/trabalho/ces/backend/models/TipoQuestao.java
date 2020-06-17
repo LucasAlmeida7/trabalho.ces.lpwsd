@@ -54,11 +54,11 @@ public class TipoQuestao implements Serializable {
         this.idTipoQuestao = idTipoQuestao;
     }
 
-    public String getNomeTipoQuestaocol() {
+    public String getNomeTipoQuestao() {
         return nomeTipoQuestao;
     }
 
-    public void setNomeTipoQuestaocol(String nomeTipoQuestaocol) {
+    public void setNomeTipoQuestao(String nomeTipoQuestaocol) {
         this.nomeTipoQuestao = nomeTipoQuestaocol;
     }
 

@@ -1,7 +1,16 @@
 package trabalho.ces.trabalho.ces.backend.utils;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
+import trabalho.ces.trabalho.ces.backend.models.Questao;
+import trabalho.ces.trabalho.ces.backend.models.Usuario;
+import trabalho.ces.trabalho.ces.backend.viewmodels.Questao.GridQuestaoViewModel;
+import trabalho.ces.trabalho.ces.backend.viewmodels.Questao.InputQuestaoViewModel;
+import trabalho.ces.trabalho.ces.backend.viewmodels.Questao.OutputQuestaoViewModel;
+import trabalho.ces.trabalho.ces.backend.viewmodels.Usuario.InputUsuarioViewModel;
+import trabalho.ces.trabalho.ces.backend.viewmodels.Usuario.OutputUsuarioViewModel;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -12,7 +21,84 @@ public final class MapperUtil {
     protected ModelMapper modelMapper;
 
     public MapperUtil() {
-        this.modelMapper = new ModelMapper();
+        ModelMapper modelMapper = new ModelMapper();
+        this.modelMapper = modelMapper;
+        RegisterUsuario();
+        RegisterQuestao();
+    }
+
+    public void RegisterUsuario(){
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+        // InputUsuarioViewModel -- > Usuario
+        modelMapper.addMappings(new PropertyMap<InputUsuarioViewModel, Usuario>() {
+            @Override
+            protected void configure() {
+                map().setNomeUsuario(source.getNomeUsuario());
+                map().setEmailUsuario(source.getEmailUsuario());
+                map().setSenhaUsuario(source.getSenhaUsuario());
+                map().getTipoUsuarioidTipoUsuario().setIdTipoUsuario(source.getIdTipoUsuario());
+            }
+        });
+
+        // OutputUsuarioViewModel -- > Usuario
+        modelMapper.addMappings(new PropertyMap<Usuario, OutputUsuarioViewModel>() {
+            @Override
+            protected void configure() {
+                map().setNomeUsuario(source.getNomeUsuario());
+                map().setEmailUsuario(source.getEmailUsuario());
+                map().setSenhaUsuario(source.getSenhaUsuario());
+                map().setIdTipoUsuario((source.getTipoUsuarioidTipoUsuario().getIdTipoUsuario()));
+            }
+        });
+
+    }
+
+    public void RegisterQuestao(){
+
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+        // InputQuestaoViewModel -- > Questao
+        modelMapper.addMappings(new PropertyMap<InputQuestaoViewModel, Questao>() {
+            @Override
+            protected void configure() {
+                map().setDescricaoQuestao(source.getDescricaoQuestao());
+                map().setAlternativaA(source.getAlternativaA());
+                map().setAlternativaB(source.getAlternativaB());
+                map().setAlternativaC(source.getAlternativaC());
+                map().setAlternativaD(source.getAlternativaD());
+                map().setAlternativaE(source.getAlternativaE());
+                map().setAlternativaCorreta(source.getAlternativaCorreta());
+                map().setEstadoQuestao(source.getEstadoQuestao());
+                map().getTipoQuestaoidTipoQuestao().setIdTipoQuestao(source.getIdTipoQuestao());
+            }
+        });
+
+        // OutputQuestaoViewModel -- > Questao
+        modelMapper.addMappings(new PropertyMap<Questao, OutputQuestaoViewModel>() {
+            @Override
+            protected void configure() {
+                map().setDescricaoQuestao(source.getDescricaoQuestao());
+                map().setAlternativaA(source.getAlternativaA());
+                map().setAlternativaB(source.getAlternativaB());
+                map().setAlternativaC(source.getAlternativaC());
+                map().setAlternativaD(source.getAlternativaD());
+                map().setAlternativaE(source.getAlternativaE());
+                map().setAlternativaCorreta(source.getAlternativaCorreta());
+                map().setEstadoQuestao(source.getEstadoQuestao());
+                map().setIdTipoQuestao((source.getTipoQuestaoidTipoQuestao().getIdTipoQuestao()));
+            }
+        });
+
+        // Questao -- > GridQuestaoViewModel
+        modelMapper.addMappings(new PropertyMap<Questao, GridQuestaoViewModel>() {
+            @Override
+            protected void configure() {
+                map().setEstadoQuestao(source.descricaoEstado());
+                map().setNomeTipoQuestao(source.getTipoQuestaoidTipoQuestao().getNomeTipoQuestao());
+            }
+        });
+
     }
 
     /**

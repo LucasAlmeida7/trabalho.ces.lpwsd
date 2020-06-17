@@ -17,7 +17,7 @@ export default {
         },
         { text: "Descrição", value: "descricaoQuestao" },
         { text: "Estado", value: "estadoQuestao" },
-        { text: "Tipo Questão", value: "idTipoQuestao" },
+        { text: "Tipo Questão", value: "nomeTipoQuestao" },
         { text: "Ações", value: "actions", sortable: false, align: "end" }
       ],
       questoes: [],
@@ -46,13 +46,14 @@ export default {
         estadoQuestao: 1,
         idTipoQuestao: 1
       },
+      estadoSelecionado: '',
       estados: [
-        { id: "1", descricao: "Ativa" },
-        { id: "2", descricao: "Inativa" }
+        { value: "1", text: "Ativada" },
+        { value: "2", text: "Desativada" }
       ],
       tiposQuestao: [
-        { idTipoQuestao: "1", descricao: "Discursiva" },
-        { idTipoQuestao: "2", descricao: "Objetiva" }
+        { value: "1", text: "Objetiva" },
+        { value: "2", text: "Discursiva" }
       ]
     };
   },
@@ -75,7 +76,8 @@ export default {
         .catch(err => {
           console.log("Erro", err.response);
           vm.$toast.open({
-            message: "Ocorreu um erro ao acessar os dados, tente novamente mais tarde.",
+            message:
+              "Ocorreu um erro ao acessar os dados, tente novamente mais tarde.",
             type: "error"
           });
         });
@@ -106,7 +108,8 @@ export default {
         .catch(err => {
           console.log("Erro", err.response);
           vm.$toast.open({
-            message: "Ocorreu um erro ao acessar os dados, tente novamente mais tarde.",
+            message:
+              "Ocorreu um erro ao acessar os dados, tente novamente mais tarde.",
             type: "error"
           });
         });
@@ -126,12 +129,16 @@ export default {
           .catch(err => {
             console.log("Erro", err.response);
             vm.$toast.open({
-              message: "Ocorreu um erro ao cadastrar, tente novamente mais tarde.",
+              message:
+                "Ocorreu um erro ao cadastrar, tente novamente mais tarde.",
               type: "error"
             });
           });
       } else {
-        Http.put("questao-manager/questao/" + this.questao.idQuestao, this.questao)
+        Http.put(
+          "questao-manager/questao/" + this.questao.idQuestao,
+          this.questao
+        )
           .then(res => {
             console.log("Sucesso", res);
             vm.$toast.open({
@@ -144,7 +151,8 @@ export default {
           .catch(err => {
             console.log("Erro", err.response);
             vm.$toast.open({
-              message: "Ocorreu um erro ao atualizar o registro, tente novamente mais tarde.",
+              message:
+                "Ocorreu um erro ao atualizar o registro, tente novamente mais tarde.",
               type: "error"
             });
           });
@@ -152,6 +160,12 @@ export default {
     },
     cancelarModal() {
       this.dialog = false;
+    }
+  },
+  computed: {
+    fieldDisable() {
+      console.log("idTipoQuestao: ", this.questao.idTipoQuestao)
+      return (this.questao.idTipoQuestao.value == 2) 
     }
   }
 };
