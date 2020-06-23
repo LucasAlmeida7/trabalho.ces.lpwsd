@@ -14,8 +14,14 @@ export default {
     home() {
       router.push("home");
     },
-    cadastrarQuestao() {
+    gerenciarQuestao() {
       router.push("questoes");
+    },
+    gerenciarProvas() {
+      router.push("provas");
+    },
+    acessarQuestionario() {
+      router.push("questionario");
     }
   }
 };

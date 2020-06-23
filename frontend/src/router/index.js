@@ -25,11 +25,27 @@ Vue.use(VueRouter)
     },
   },
   {
+    path: '/questionario',
+    name: 'Questionario',
+    components: {
+      header: Header,
+      default: () => import('../views/aluno/Questionario.vue')
+    },
+  },
+  {
     path: '/questoes',
     name: 'Questoes',
     components: {
       header: Header,
       default: () => import('../views/administrativo/Questoes.vue')
+    },
+  },
+  {
+    path: '/provas',
+    name: 'Provas',
+    components: {
+      header: Header,
+      default: () => import('../views/administrativo/Provas.vue')
     },
   }
 ]

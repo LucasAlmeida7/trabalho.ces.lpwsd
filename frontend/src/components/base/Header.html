@@ -18,11 +18,23 @@
                 </v-list-item-icon>
                 <v-list-item-title>Home</v-list-item-title>
             </v-list-item>
-            <v-list-item link @click="cadastrarQuestao">
+            <v-list-item link @click="gerenciarQuestao">
                 <v-list-item-icon>
                     <v-icon>mdi-folder</v-icon>
                 </v-list-item-icon>
                 <v-list-item-title>Questões</v-list-item-title>
+            </v-list-item>
+            <v-list-item link @click="gerenciarProvas">
+                <v-list-item-icon>
+                    <v-icon>mdi-folder</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>Provas</v-list-item-title>
+            </v-list-item>
+            <v-list-item link @click="acessarQuestionario">
+                <v-list-item-icon>
+                    <v-icon>mdi-folder</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>Questionário</v-list-item-title>
             </v-list-item>
         </v-list>
     </v-navigation-drawer>

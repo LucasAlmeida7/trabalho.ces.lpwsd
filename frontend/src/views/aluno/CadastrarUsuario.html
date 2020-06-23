@@ -9,9 +9,9 @@
 
       <v-flex xs12 sm12 m12 class="mx-10">
         <v-flex xs6 sm6 m6 class="form-box" v-if="!finalizado">
-          <v-text-field id="nome" label="Nome" v-model="usuario.nome" :rules="rules" counter></v-text-field>
-          <v-text-field id="email" label="E-mail" v-model="usuario.email" :rules="rules" counter></v-text-field>
-          <v-text-field id="senha" label="Senha" v-model="usuario.senha" :rules="rules"
+          <v-text-field id="nome" label="Nome" v-model.trim="usuario.nome" :rules="rules" counter></v-text-field>
+          <v-text-field id="email" label="E-mail" v-model.trim="usuario.email" :rules="rules" counter></v-text-field>
+          <v-text-field id="senha" label="Senha" v-model.trim="usuario.senha" :rules="rules"
             :append-icon="exibirSenha ? 'mdi-eye' : 'mdi-eye-off'" :type="exibirSenha ? 'text' : 'password'"
             @click:append="exibirSenha = !exibirSenha" counter></v-text-field>
           <v-text-field id="repetirSenha" label="Repetir Senha" v-model="usuario.repetirSenha" :rules="rules" counter>

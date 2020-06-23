@@ -34,6 +34,16 @@ public class QuestaoService {
     }
 
     public InputQuestaoViewModel Inserir(InputQuestaoViewModel inputQuestaoViewModel) {
+
+        if(inputQuestaoViewModel.getIdTipoQuestao().toString() == "2"){
+            inputQuestaoViewModel.setAlternativaA("");
+            inputQuestaoViewModel.setAlternativaB("");
+            inputQuestaoViewModel.setAlternativaC("");
+            inputQuestaoViewModel.setAlternativaD("");
+            inputQuestaoViewModel.setAlternativaE("");
+            inputQuestaoViewModel.setAlternativaCorreta(null);
+        }
+
         Questao questao = mapperBase.mapTo(inputQuestaoViewModel, Questao.class);
         IQuestaoRepository.save(questao);
         return inputQuestaoViewModel;

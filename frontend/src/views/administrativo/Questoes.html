@@ -23,7 +23,8 @@
                                                 <span class="headline">{{ tituloModal }}</span>
                                             </v-col>
                                             <v-col cols="6" sm="6" md="6" class="text-right">
-                                                <v-chip v-show="!inclusao" color="red" dark>ID Questão: {{ questao.idQuestao }}
+                                                <v-chip v-show="!inclusao" color="red" dark>ID Questão:
+                                                    {{ questao.idQuestao }}
                                                 </v-chip>
                                             </v-col>
                                         </v-row>
@@ -32,48 +33,54 @@
                                         <v-container class="py-0">
                                             <v-row>
                                                 <v-col cols="12" sm="12" md="12" class="py-1">
-                                                    <v-text-field dense v-model="questao.descricaoQuestao"
-                                                        label="Descrição">
+                                                    <v-text-field dense v-model.trim="questao.descricaoQuestao"
+                                                        label="Descrição"
+                                                        :error-messages="msgErro.descricaoQuestaoErro">
                                                     </v-text-field>
                                                 </v-col>
                                                 <v-col cols="12" sm="12" md="12" class="py-1">
-                                                    <v-text-field dense v-model="questao.alternativaA"
-                                                        label="Alternativa A" :disabled="fieldDisable">
+                                                    <v-text-field dense v-model.trim="questao.alternativaA"
+                                                        label="Alternativa A" :disabled="habilitarCampo"
+                                                        :error-messages="msgErro.alternativaAErro">
                                                     </v-text-field>
                                                 </v-col>
                                                 <v-col cols="12" sm="12" md="12" class="py-1">
-                                                    <v-text-field dense v-model="questao.alternativaB"
-                                                        label="Alternativa B" :disabled="fieldDisable">
+                                                    <v-text-field dense v-model.trim="questao.alternativaB"
+                                                        label="Alternativa B" :disabled="habilitarCampo"
+                                                        :error-messages="msgErro.alternativaBErro">
                                                     </v-text-field>
                                                 </v-col>
                                                 <v-col cols="12" sm="12" md="12" class="py-1">
-                                                    <v-text-field dense v-model="questao.alternativaC"
-                                                        label="Alternativa C" :disabled="fieldDisable">
+                                                    <v-text-field dense v-model.trim="questao.alternativaC"
+                                                        label="Alternativa C" :disabled="habilitarCampo"
+                                                        :error-messages="msgErro.alternativaCErro">
                                                     </v-text-field>
                                                 </v-col>
                                                 <v-col cols="12" sm="12" md="12" class="py-1">
-                                                    <v-text-field dense v-model="questao.alternativaD"
-                                                        label="Alternativa D" :disabled="fieldDisable">
+                                                    <v-text-field dense v-model.trim="questao.alternativaD"
+                                                        label="Alternativa D" :disabled="habilitarCampo"
+                                                        :error-messages="msgErro.alternativaDErro">
                                                     </v-text-field>
                                                 </v-col>
                                                 <v-col cols="12" sm="12" md="12" class="py-1">
-                                                    <v-text-field dense v-model="questao.alternativaE"
-                                                        label="Alternativa E" :disabled="fieldDisable">
+                                                    <v-text-field dense v-model.trim="questao.alternativaE"
+                                                        label="Alternativa E" :disabled="habilitarCampo"
+                                                        :error-messages="msgErro.alternativaEErro">
                                                     </v-text-field>
                                                 </v-col>
                                                 <v-col cols="6" sm="4" md="4" class="py-1">
-                                                    <v-select dense :items="['A', 'B', 'C', 'D' , 'E']"
+                                                    <v-select solo dense :items="['A', 'B', 'C', 'D' , 'E']"
                                                         v-model="questao.alternativaCorreta" label="Alternativa Correta"
-                                                        :disabled="fieldDisable"></v-select>
+                                                        :disabled="habilitarCampo"></v-select>
                                                 </v-col>
                                                 <v-col cols="6" sm="4" md="4" class="py-1">
-                                                    <v-select solo dense v-model="questao.estadoQuestao"
+                                                    <v-select solo dense v-model.number="questao.estadoQuestao"
                                                         :items="estados" item-value="value" item-text="text"
                                                         label="Estado">
                                                     </v-select>
                                                 </v-col>
                                                 <v-col cols="6" sm="4" md="4" class="py-1">
-                                                    <v-select solo dense v-model="questao.idTipoQuestao"
+                                                    <v-select solo dense v-model.number="questao.idTipoQuestao"
                                                         :items="tiposQuestao" item-value="value" item-text="text"
                                                         label="Tipo Questão">
                                                     </v-select>

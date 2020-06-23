@@ -46,15 +46,24 @@ export default {
         estadoQuestao: 1,
         idTipoQuestao: 1
       },
-      estadoSelecionado: '',
+      msgErro: {
+        descricaoQuestaoErro: "",
+        alternativaAErro: "",
+        alternativaBErro: "",
+        alternativaCErro: "",
+        alternativaDErro: "",
+        alternativaEErro: ""
+      },
+      estadoSelecionado: "",
       estados: [
-        { value: "1", text: "Ativada" },
-        { value: "2", text: "Desativada" }
+        { value: 1, text: "Ativada" },
+        { value: 2, text: "Desativada" }
       ],
       tiposQuestao: [
-        { value: "1", text: "Objetiva" },
-        { value: "2", text: "Discursiva" }
-      ]
+        { value: 1, text: "Objetiva" },
+        { value: 2, text: "Discursiva" }
+      ],
+      bloquearCampos: false
     };
   },
   created() {
@@ -66,11 +75,6 @@ export default {
         .then(result => {
           if (result.data != "") {
             this.questoes = result.data;
-          } else {
-            vm.$toast.open({
-              message: "Nenhuma questão encontrada.",
-              type: "warning"
-            });
           }
         })
         .catch(err => {
@@ -115,6 +119,8 @@ export default {
         });
     },
     salvarModal() {
+      if (!this.validarEntrada()) return;
+
       if (this.inclusao) {
         Http.post("questao-manager/questao/", this.questao)
           .then(res => {
@@ -160,12 +166,59 @@ export default {
     },
     cancelarModal() {
       this.dialog = false;
+    },
+    validarEntrada() {
+      let count = 0;
+
+      if (this.questao.descricaoQuestao == "") {
+        this.msgErro.descricaoQuestaoErro = "Informe a descrição da questão";
+        count++;
+      }
+
+      if (this.questao.idTipoQuestao == 1) {
+        if (this.questao.alternativaA == "") {
+          this.msgErro.alternativaAErro = "Informe a alternativa A";
+          count++;
+        }
+
+        if (this.questao.alternativaB == "") {
+          this.msgErro.alternativaBErro = "Informe a alternativa B";
+          count++;
+        }
+
+        if (this.questao.alternativaC == "") {
+          this.msgErro.alternativaCErro = "Informe a alternativa C";
+          count++;
+        }
+
+        if (this.questao.alternativaD == "") {
+          this.msgErro.alternativaDErro = "Informe a alternativa D";
+          count++;
+        }
+
+        if (this.questao.alternativaE == "") {
+          this.msgErro.alternativaEErro = "Informe a alternativa E";
+          count++;
+        }
+      }
+
+      return count == 0;
     }
   },
   computed: {
-    fieldDisable() {
-      console.log("idTipoQuestao: ", this.questao.idTipoQuestao)
-      return (this.questao.idTipoQuestao.value == 2) 
+    habilitarCampo() {
+      return this.questao.idTipoQuestao == 2;
+    }
+  },
+  watch: {
+    habilitarCampo(habilitado) {
+      if (habilitado) {
+        this.questao.alternativaA = "";
+        this.questao.alternativaB = "";
+        this.questao.alternativaC = "";
+        this.questao.alternativaD = "";
+        this.questao.alternativaE = "";
+      }
     }
   }
 };
