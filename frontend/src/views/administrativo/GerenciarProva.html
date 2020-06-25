@@ -1,0 +1,50 @@
+<section>
+    <v-container class="fill-height" fluid>
+        <v-layout class="mx-auto mx-10">
+            <v-flex md12>
+                <v-container fluid class="py-0">
+                    <v-row>
+                        <v-col cols="9" sm="9" md="9" class="py-1">
+                            <v-toolbar flat color="white">
+                                <v-toolbar-title>{{tituloOperacao}}</v-toolbar-title>
+                                <v-spacer></v-spacer>
+                            </v-toolbar>
+                        </v-col>
+                        <v-col cols="3" sm="3" md="3" class="py-1">
+                            <v-menu offset-y v-model="calendario" :close-on-content-click="false"
+                                transition="scale-transition" max-width="290px" min-width="290px">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field readonly v-model="dataFormatada" label="Data da Prova" v-bind="attrs"
+                                        v-on="on">
+                                    </v-text-field>
+                                </template>
+                                <v-date-picker no-title v-model="prova.dataProva" @input="calendario = false">
+                                </v-date-picker>
+                            </v-menu>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" sm="12" md="12" class="py-1">
+                            <v-text>Selecione as questões para adicionar a prova:</v-text>
+                            <v-data-table dense show-select v-model="selecionadas" :headers="headers" :items="questoes"
+                                item-key="idQuestao" sort-by="idQuestao" :search="pesquisa"
+                                :sort-by="['descricaoQuestao', 'estadoQuestao']" :sort-desc="[false, true]"
+                                class="elevation-4 mt-3">
+                            </v-data-table>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" sm="12" md="12" class="py-3 text-right">
+                            <v-btn depressed small outlined color="red" class="elevation-3" @click="voltar">
+                                Voltar
+                            </v-btn>
+                            <v-btn depressed small color="primary" class="ml-4 elevation-3" @click="salvar">
+                                Salvar
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                </v-container>
+            </v-flex>
+        </v-layout>
+    </v-container>
+</section>

@@ -18,7 +18,7 @@ export default {
         { text: "Descrição", value: "descricaoQuestao" },
         { text: "Estado", value: "estadoQuestao" },
         { text: "Tipo Questão", value: "nomeTipoQuestao" },
-        { text: "Ações", value: "actions", sortable: false, align: "end" }
+        { text: "Ações", value: "actions", sortable: false, align: "center" }
       ],
       questoes: [],
       dialog: false,
@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     buscarQuestoes() {
-      Http.get("questao-manager/questoes/", {})
+      Http.get("questao-manager/questoes/todas", {})
         .then(result => {
           if (result.data != "") {
             this.questoes = result.data;

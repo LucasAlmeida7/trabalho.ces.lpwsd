@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import trabalho.ces.trabalho.ces.backend.classmappers.MapperBase;
+import trabalho.ces.trabalho.ces.backend.mappers.MapperBase;
 import trabalho.ces.trabalho.ces.backend.models.Usuario;
 import trabalho.ces.trabalho.ces.backend.repositories.IUsuarioRepository;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Usuario.InputUsuarioViewModel;
@@ -64,6 +64,7 @@ public class UsuarioService {
         if (usuarioId == null) {
             throw new IllegalArgumentException();
         }
+
         if (usuarioId.getIdUsuario() != id) {
             throw new IllegalArgumentException();
         }

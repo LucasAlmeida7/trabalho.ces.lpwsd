@@ -1,8 +1,94 @@
 <section>
     <v-container class="fill-height" fluid>
-        <v-layout class="mx-auto mx-10 text-center">
+        <v-layout class="mx-auto mx-10">
             <v-flex md12>
-                <h1>Questionário</h1>
+                <v-container fluid class="py-0" v-if="!iniciado">
+                    <v-row>
+                        <v-col cols="12" sm="12" md="12" class="py-1">
+                            <v-data-table :headers="headers" :items="provas" sort-by="idProva" :search="pesquisa"
+                                :sort-by="['idProva', 'dataProva']" :sort-desc="[false, true]" class="elevation-4">
+                                <template v-slot:top>
+                                    <v-toolbar flat color="white">
+                                        <v-toolbar-title>Provas Disponíveis</v-toolbar-title>
+                                        <v-divider class="mx-4" inset vertical></v-divider>
+                                        <v-spacer></v-spacer>
+                                        <v-text-field v-model="pesquisa" append-icon="mdi-magnify" label="Pesquisar"
+                                            single-line hide-details></v-text-field>
+                                    </v-toolbar>
+                                </template>
+                                <template v-slot:item.actions="{ item }">
+                                    <v-icon small @click="iniciarProva(item.idProva)">
+                                        mdi-play
+                                    </v-icon>
+                                </template>
+                            </v-data-table>
+                        </v-col>
+                    </v-row>
+                </v-container>
+
+                <v-container class="py-0" v-else>
+                    <v-row>
+                        <v-col cols="6" sm="6" md="6" class="py-1">
+                            <v-chip color="red" dark>
+                                ID Prova: {{provaIniciada.idProva}}
+                            </v-chip>
+                        </v-col>
+                        <v-col cols="6" sm="6" md="6" class="py-1 text-right">
+                            <v-btn depressed small color="error" class="ml-4 elevation-3" @click="cancelarProva">
+                                Cancelar Prova
+                                <v-icon right>mdi-close</v-icon>
+                            </v-btn>
+                            <v-btn depressed small color="success" class="ml-4 elevation-3" @click="finalizarProva">
+                                Finalizar Prova
+                                <v-icon right>mdi-check</v-icon>
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" sm="12" md="12" class="py-1">
+                            <h3>Questão {{ indexQuestao+1 }} de {{ provaIniciada.questoes.length }}</h3>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" sm="12" md="12">
+                            {{questaoAtual.descricaoQuestao}}
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" sm="12" md="12" class="py-1" style="height: 200px;">
+                            <v-radio-group v-if="questaoAtual.idTipoQuestao == 1"
+                                v-model="questaoAtual.alternativaMarcada">
+                                <v-radio value="A" :label="questaoAtual.alternativaA"></v-radio>
+                                <v-radio value="B" :label="questaoAtual.alternativaB"></v-radio>
+                                <v-radio value="C" :label="questaoAtual.alternativaC"></v-radio>
+                                <v-radio value="D" :label="questaoAtual.alternativaD"></v-radio>
+                                <v-radio value="E" :label="questaoAtual.alternativaE"></v-radio>
+                            </v-radio-group>
+                        </v-col>
+                    </v-row>
+                    <v-row class="text-center">
+                        <v-col cols="12" sm="12" md="12" class="py-1">
+                            <v-btn :disabled="indexQuestao == 0" depressed small outlined color="primary"
+                                class="ml-4 elevation-3" @click="anteriorQuestao">
+                                <v-icon left>mdi-arrow-left</v-icon>
+                                Anterior
+                            </v-btn>
+                            <v-btn :disabled="questaoAtual.confirmada" depressed small color="primary"
+                                class="ml-4 elevation-3" @click="confirmarQuestao">
+                                Confirmar
+                                <v-icon right>mdi-check</v-icon>
+                            </v-btn>
+                            <v-btn :disabled="indexQuestao == (provaIniciada.questoes.length-1)" depressed small
+                                outlined color="primary" class="ml-4 elevation-3" @click="proximaQuestao">
+                                Próxima
+                                <v-icon right>mdi-arrow-right</v-icon>
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <h1>{{nota}}</h1>
+                    </v-row>
+                </v-container>
             </v-flex>
         </v-layout>
     </v-container>

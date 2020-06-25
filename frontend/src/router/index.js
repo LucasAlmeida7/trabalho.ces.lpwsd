@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Header from "@/components/base/Header.vue";
+import admRotas from "./administrativo-rotas"
+import alunoRotas from "./aluno-rotas"
 
 Vue.use(VueRouter)
   const routes = [
@@ -17,37 +19,8 @@ Vue.use(VueRouter)
       default: () => import('../views/Home.vue'),
     },
   },
-  {
-    path: '/cadastrar-usuario',
-    name: 'CadastrarUsuario',
-    components: {
-      default: () => import('../views/aluno/CadastrarUsuario.vue')
-    },
-  },
-  {
-    path: '/questionario',
-    name: 'Questionario',
-    components: {
-      header: Header,
-      default: () => import('../views/aluno/Questionario.vue')
-    },
-  },
-  {
-    path: '/questoes',
-    name: 'Questoes',
-    components: {
-      header: Header,
-      default: () => import('../views/administrativo/Questoes.vue')
-    },
-  },
-  {
-    path: '/provas',
-    name: 'Provas',
-    components: {
-      header: Header,
-      default: () => import('../views/administrativo/Provas.vue')
-    },
-  }
+  ...admRotas,
+  ...alunoRotas
 ]
 
 const router = new VueRouter({

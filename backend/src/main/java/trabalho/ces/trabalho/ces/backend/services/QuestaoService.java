@@ -2,10 +2,11 @@ package trabalho.ces.trabalho.ces.backend.services;
 
 import com.google.common.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import trabalho.ces.trabalho.ces.backend.classmappers.MapperBase;
+import trabalho.ces.trabalho.ces.backend.mappers.MapperBase;
+import trabalho.ces.trabalho.ces.backend.enums.FiltroQuestaoEnum;
 import trabalho.ces.trabalho.ces.backend.models.Questao;
+import trabalho.ces.trabalho.ces.backend.repositories.IQuestaoRepository;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Questao.GridQuestaoViewModel;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Questao.InputQuestaoViewModel;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Questao.OutputQuestaoViewModel;
@@ -18,19 +19,35 @@ import java.util.List;
 public class QuestaoService {
 
     @Autowired
-    trabalho.ces.trabalho.ces.backend.repositories.IQuestaoRepository IQuestaoRepository;
+    IQuestaoRepository questaoRepository;
 
     @Autowired
     MapperBase mapperBase;
 
-    public List<GridQuestaoViewModel> BuscarTodos(){
+    public List<GridQuestaoViewModel> BuscarTodos(FiltroQuestaoEnum filtroQuestaoEnum){
+        List<Questao> questoes;
+
+        switch (filtroQuestaoEnum){
+            case todas:
+                questoes = questaoRepository.findAll();
+                break;
+            case ativadas:
+                questoes = questaoRepository.findAllByEstadoQuestao((short)1);
+                break;
+            case desativadas:
+                questoes = questaoRepository.findAllByEstadoQuestao((short)2);
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
+
         Type type = new TypeToken<ArrayList<GridQuestaoViewModel>>() {}.getType();
-        List<GridQuestaoViewModel> result = mapperBase.toList(IQuestaoRepository.findAll(), type);
+        List<GridQuestaoViewModel> result = mapperBase.toList(questoes, type);
         return result;
     }
 
     public OutputQuestaoViewModel BuscarId(long id){
-        return mapperBase.mapTo(IQuestaoRepository.findById(id), OutputQuestaoViewModel.class);
+        return mapperBase.mapTo(questaoRepository.findById(id), OutputQuestaoViewModel.class);
     }
 
     public InputQuestaoViewModel Inserir(InputQuestaoViewModel inputQuestaoViewModel) {
@@ -45,12 +62,12 @@ public class QuestaoService {
         }
 
         Questao questao = mapperBase.mapTo(inputQuestaoViewModel, Questao.class);
-        IQuestaoRepository.save(questao);
+        questaoRepository.save(questao);
         return inputQuestaoViewModel;
     }
 
     public OutputQuestaoViewModel Atualizar(long id, InputQuestaoViewModel inputQuestaoViewModel) {
-        Questao questaoId = IQuestaoRepository.findById(id);
+        Questao questaoId = questaoRepository.findById(id);
 
         if (questaoId == null) {
             throw new IllegalArgumentException();
@@ -61,7 +78,7 @@ public class QuestaoService {
 
         Questao questao = mapperBase.mapTo(inputQuestaoViewModel, Questao.class);
         questao.setIdQuestao(id);
-        IQuestaoRepository.save(questao);
+        questaoRepository.save(questao);
 
         return mapperBase.mapTo(questao, OutputQuestaoViewModel.class);
     }

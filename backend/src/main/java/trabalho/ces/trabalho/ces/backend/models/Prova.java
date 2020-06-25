@@ -2,11 +2,14 @@ package trabalho.ces.trabalho.ces.backend.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
+import org.omg.CORBA.INTERNAL;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -69,10 +72,17 @@ public class Prova implements Serializable {
         this.dataProva = dataProva;
     }
 
+    public String getDataString(){
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return dateFormat.format(this.dataProva);
+    }
+
     @XmlTransient
     public List<Questao> getQuestaoList() {
         return questaoList;
     }
+
+    public Integer getNumQuestao() { return this.questaoList.size(); }
 
     public void setQuestaoList(List<Questao> questaoList) {
         this.questaoList = questaoList;

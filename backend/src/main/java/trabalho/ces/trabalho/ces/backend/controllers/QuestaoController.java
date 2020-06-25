@@ -4,6 +4,7 @@ package trabalho.ces.trabalho.ces.backend.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import trabalho.ces.trabalho.ces.backend.enums.FiltroQuestaoEnum;
 import trabalho.ces.trabalho.ces.backend.services.QuestaoService;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Questao.GridQuestaoViewModel;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Questao.InputQuestaoViewModel;
@@ -19,9 +20,9 @@ public class QuestaoController {
     private QuestaoService questaoService;
 
     @CrossOrigin(origins = "http://localhost:8081")
-    @GetMapping("/questoes")
-    public List<GridQuestaoViewModel> BuscarQuestoes(){
-        return questaoService.BuscarTodos();
+    @GetMapping("/questoes/{filtro}")
+    public List<GridQuestaoViewModel> BuscarQuestoes(@PathVariable(value="filtro") FiltroQuestaoEnum filtroQuestaoEnum){
+        return questaoService.BuscarTodos(filtroQuestaoEnum);
     }
 
     @CrossOrigin(origins = "http://localhost:8081")

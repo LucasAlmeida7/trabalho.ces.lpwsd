@@ -1,4 +1,4 @@
-package trabalho.ces.trabalho.ces.backend.utils;
+package trabalho.ces.trabalho.ces.backend.mappers;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
@@ -7,8 +7,9 @@ import org.springframework.stereotype.Component;
 import trabalho.ces.trabalho.ces.backend.models.Prova;
 import trabalho.ces.trabalho.ces.backend.models.Questao;
 import trabalho.ces.trabalho.ces.backend.models.Usuario;
-import trabalho.ces.trabalho.ces.backend.viewmodels.Prova.InputProvaViewModel;
+import trabalho.ces.trabalho.ces.backend.viewmodels.Prova.GridProvaViewModel;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Prova.OutputProvaViewModel;
+import trabalho.ces.trabalho.ces.backend.viewmodels.Questao.InputQuestaoProvaViewModel;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Questao.GridQuestaoViewModel;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Questao.InputQuestaoViewModel;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Questao.OutputQuestaoViewModel;
@@ -18,17 +19,18 @@ import trabalho.ces.trabalho.ces.backend.viewmodels.Usuario.OutputUsuarioViewMod
 import java.lang.reflect.Type;
 import java.util.List;
 
-@Component("mapperUtil")
-public final class MapperUtil {
+@Component("mapperRegister")
+public final class MapperRegister {
 
     protected ModelMapper modelMapper;
 
-    public MapperUtil() {
+    public MapperRegister() {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         this.modelMapper = modelMapper;
         RegisterUsuario();
         RegisterQuestao();
+        RegisterProva();
     }
 
     public void RegisterUsuario(){
@@ -98,23 +100,31 @@ public final class MapperUtil {
             }
         });
 
+        // QuestaoProvaViewModel -- > Questao
+        modelMapper.addMappings(new PropertyMap<InputQuestaoProvaViewModel, Questao>() {
+            @Override
+            protected void configure() {
+                map().setIdQuestao(source.getIdQuestao());
+            }
+        });
     }
 
     public void RegisterProva(){
-
-        // InputProvaViewModel -- > Prova
-        modelMapper.addMappings(new PropertyMap<InputProvaViewModel, Prova>() {
-            @Override
-            protected void configure() {
-                map().setDataProva(source.getDataProva());
-            }
-        });
 
         // OutputProvaViewModel -- > Prova
         modelMapper.addMappings(new PropertyMap<Prova, OutputProvaViewModel>() {
             @Override
             protected void configure() {
                 map().setDataProva(source.getDataProva());
+            }
+        });
+
+        // Prova -- > GridProvaViewModel
+        modelMapper.addMappings(new PropertyMap<Prova, GridProvaViewModel>() {
+            @Override
+            protected void configure() {
+                map().setDataProva(source.getDataString());
+                map().setNumQuestoes(source.getNumQuestao());
             }
         });
     }
