@@ -12,16 +12,19 @@ export default {
   },
   methods: {
     home() {
-      router.push("home");
+      router.push("/home");
     },
     gerenciarQuestao() {
-      router.push("questoes");
+      router.push("/questoes");
     },
     gerenciarProvas() {
-      router.push("provas");
+      router.push("/provas");
     },
     acessarQuestionario() {
-      router.push("questionario");
+      router.push("/questionario");
+    },
+    acessarGrafico(){
+      router.push("/grafico");
     }
   }
 };

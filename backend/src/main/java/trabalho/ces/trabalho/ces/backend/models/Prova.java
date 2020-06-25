@@ -1,9 +1,5 @@
 package trabalho.ces.trabalho.ces.backend.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModelProperty;
-import org.omg.CORBA.INTERNAL;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlTransient;
@@ -19,28 +15,24 @@ public class Prova implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "Id da prova")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idProva")
     private Integer idProva;
 
-    @ApiModelProperty(value = "Data da prova")
     @Basic(optional = false)
     @NotNull
     @Column(name = "dataProva")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataProva;
 
-    @JsonIgnore
     @JoinTable(name = "tbProva_has_tbQuestao", joinColumns = {
             @JoinColumn(name = "tbProva_idProva", referencedColumnName = "idProva")}, inverseJoinColumns = {
             @JoinColumn(name = "tbQuestao_idQuestao", referencedColumnName = "idQuestao")})
     @ManyToMany
     private List<Questao> questaoList;
 
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "provaidProva")
     private List<Resultado> resultadoList;
 

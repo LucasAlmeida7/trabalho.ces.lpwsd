@@ -1,8 +1,5 @@
 package trabalho.ces.trabalho.ces.backend.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModelProperty;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -16,21 +13,18 @@ public class TipoUsuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "Id do tipo de usuário")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idTipoUsuario")
     private Integer idTipoUsuario;
 
-    @ApiModelProperty(value = "Nome do tipo de usuário")
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 9)
     @Column(name = "nomeTipoUsuario")
     private String nomeTipoUsuario;
 
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoUsuarioidTipoUsuario")
     private List<Usuario> usuarioList;
 

@@ -1,7 +1,5 @@
 package trabalho.ces.trabalho.ces.backend.models;
 
-import io.swagger.annotations.ApiModelProperty;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -12,25 +10,21 @@ public class Resultado implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "Id do resultado")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idResultado")
     private Integer idResultado;
 
-    @ApiModelProperty(value = "Valor obtido do resultado")
     @Basic(optional = false)
     @NotNull
     @Column(name = "valorObtido")
     private double valorObtido;
 
-    @ApiModelProperty(value = "Prova do resultado")
     @JoinColumn(name = "tbProva_idProva", referencedColumnName = "idProva")
     @ManyToOne(optional = false)
     private Prova provaidProva;
 
-    @ApiModelProperty(value = "Usuário do resultado")
     @JoinColumn(name = "tbUsuario_idUsuario", referencedColumnName = "idUsuario")
     @ManyToOne(optional = false)
     private Usuario usuarioidUsuario;

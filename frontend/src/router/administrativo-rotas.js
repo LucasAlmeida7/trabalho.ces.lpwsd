@@ -24,6 +24,14 @@ const routes = [
             header: Header,
             default: () => import('../views/administrativo/GerenciarProva.vue')
         },
+    },
+    {
+        path: '/grafico',
+        name: 'Gráfico',
+        components: {
+            header: Header,
+            default: () => import('../views/administrativo/graficos/Grafico.vue')
+        },
     }
 ]
 

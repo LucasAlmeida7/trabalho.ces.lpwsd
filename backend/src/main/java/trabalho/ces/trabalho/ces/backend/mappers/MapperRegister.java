@@ -6,6 +6,7 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
 import trabalho.ces.trabalho.ces.backend.models.Prova;
 import trabalho.ces.trabalho.ces.backend.models.Questao;
+import trabalho.ces.trabalho.ces.backend.models.Resultado;
 import trabalho.ces.trabalho.ces.backend.models.Usuario;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Prova.GridProvaViewModel;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Prova.OutputProvaViewModel;
@@ -13,6 +14,7 @@ import trabalho.ces.trabalho.ces.backend.viewmodels.Questao.InputQuestaoProvaVie
 import trabalho.ces.trabalho.ces.backend.viewmodels.Questao.GridQuestaoViewModel;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Questao.InputQuestaoViewModel;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Questao.OutputQuestaoViewModel;
+import trabalho.ces.trabalho.ces.backend.viewmodels.Resultado.InputResultadoViewModel;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Usuario.InputUsuarioViewModel;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Usuario.OutputUsuarioViewModel;
 
@@ -31,6 +33,7 @@ public final class MapperRegister {
         RegisterUsuario();
         RegisterQuestao();
         RegisterProva();
+        RegisterResultado();
     }
 
     public void RegisterUsuario(){
@@ -125,6 +128,19 @@ public final class MapperRegister {
             protected void configure() {
                 map().setDataProva(source.getDataString());
                 map().setNumQuestoes(source.getNumQuestao());
+            }
+        });
+    }
+
+    public void RegisterResultado(){
+
+        // InputResultadoViewModel -- > Resultado
+        modelMapper.addMappings(new PropertyMap<InputResultadoViewModel, Resultado>() {
+            @Override
+            protected void configure() {
+                map().setValorObtido(source.getValorObtido());
+                map().getProvaidProva().setIdProva(source.getIdProva());
+                map().getUsuarioidUsuario().setIdUsuario(source.getIdUsuario());
             }
         });
     }
