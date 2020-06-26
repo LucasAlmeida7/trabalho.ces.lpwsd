@@ -54,7 +54,6 @@ export default {
           if (result.data != "") {
             this.provaIniciada = result.data;
             this.provaIniciada.idProva = idProva;
-            console.log("PROVA", this.provaIniciada);
           } else {
             vm.$toast.open({
               message: "Nenhuma questão encontrada.",
@@ -78,27 +77,68 @@ export default {
       this.indexQuestao++;
     },
     confirmarQuestao() {
+      debugger;
       this.questaoAtual.confirmada = true;
       if (this.indexQuestao != this.provaIniciada.questoes.length - 1) {
         this.indexQuestao++;
+      } else {
+        this.questaoAtual.confirmada = true;
       }
     },
     cancelarProva() {
       this.iniciado = !this.iniciado;
     },
     finalizarProva() {
-      let count = 0;
+      let completo = true;
+      let pontos = 0;
+
+      this.provaIniciada.questoes.forEach(pendente);
+
+      if (!completo) {
+        vm.$toast.open({
+          message: "Responda todas as questões antes de finalizar.",
+          type: "error"
+        });
+        return;
+      }
+
       this.provaIniciada.questoes.forEach(pontuacao);
 
-      function pontuacao(item) {
-        if (item.idTipoQuestao == 1) {
-          item.alternativaCorreta == item.alternativaMarcada ? count++ : null;
-        } else {
-          count++;
+      Http.post("resultado-manager/resultado/", {
+        idProva: this.provaIniciada.idProva,
+        idUsuario: JSON.parse(localStorage.getItem('usuario')).idUsuario,
+        valorObtido: pontos
+      })
+        .then(res => {
+          console.log("Sucesso", res);
+          vm.$toast.open({
+            message: "Prova finalizada com sucesso.",
+            type: "success"
+          });
+          this.iniciado = false;
+        })
+        .catch(err => {
+          console.log("Erro", err.response);
+          vm.$toast.open({
+            message:
+              "Ocorreu um erro ao cadastrar o usuário, tente novamente mais tarde.",
+            type: "error"
+          });
+        });
+
+      function pendente(item) {
+        if (item.idTipoQuestao == 1 && !item.confirmada) {
+          completo = false;
         }
       }
 
-      this.nota = count;
+      function pontuacao(item) {
+        if (item.idTipoQuestao == 1) {
+          item.alternativaCorreta == item.alternativaMarcada ? pontos++ : null;
+        } else {
+          pontos++;
+        }
+      }
     }
   },
   computed: {
@@ -108,6 +148,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" src="./Questionario.scss" scoped></style>
-

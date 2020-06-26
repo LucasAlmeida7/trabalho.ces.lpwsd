@@ -10,11 +10,13 @@
             <v-flex xs12 sm12 m12 class="mx-10">
                 <v-flex xs4 sm4 m4 class="form-box">
                     <h5>Bem vindo ao Simulado Enade, acesse com:</h5>
-                    <v-text-field id="email" label="E-mail" v-model.trim="email" :rules="rules"></v-text-field>
-                    <v-text-field id="senha" label="Senha" v-model.trim="senha" :rules="rules"
+                    <v-text-field id="email" label="E-mail" v-model.trim="email" :rules="rules" maxlength="45">
+                    </v-text-field>
+                    <v-text-field id="senha" label="Senha" v-model.trim="senha" :rules="rules" maxlength="45"
                         :append-icon="exibirSenha ? 'mdi-eye' : 'mdi-eye-off'" :type="exibirSenha ? 'text' : 'password'"
                         @click:append="exibirSenha = !exibirSenha"></v-text-field>
-                    <v-btn depressed small color="primary" class="elevation-3" @click="loginUsuario">ENTRAR</v-btn>
+                    <v-btn depressed small color="primary" class="elevation-3" @keyup.enter="loginUsuario"
+                        @click="loginUsuario">ENTRAR</v-btn>
                 </v-flex>
             </v-flex>
 

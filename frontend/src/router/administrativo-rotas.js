@@ -26,11 +26,19 @@ const routes = [
         },
     },
     {
-        path: '/grafico',
-        name: 'Gráfico',
+        path: '/grafico/resultados',
+        name: 'Gráfico Resultados',
         components: {
             header: Header,
-            default: () => import('../views/administrativo/graficos/Grafico.vue')
+            default: () => import('../views/administrativo/graficos/GraficoResultados.vue')
+        },
+    },
+    {
+        path: '/grafico/pendentes',
+        name: 'Gráfico Pendentes',
+        components: {
+            header: Header,
+            default: () => import('../views/administrativo/graficos/GraficoPendentes.vue')
         },
     }
 ]

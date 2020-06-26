@@ -4,13 +4,16 @@
             <v-flex md12>
                 <v-container fluid class="py-0">
                     <v-row>
-                        <v-col cols="9" sm="9" md="9" class="py-1">
+                        <v-col cols="9" sm="9" md="9" class="py-0">
                             <v-toolbar flat color="white">
-                                <v-toolbar-title>{{tituloOperacao}}</v-toolbar-title>
+                                <v-toolbar-title class="mr-2">{{tituloOperacao}}</v-toolbar-title>
+                                <v-chip v-show="!inclusao" color="red" dark>
+                                    ID Prova: {{idProva}}
+                                </v-chip>
                                 <v-spacer></v-spacer>
                             </v-toolbar>
                         </v-col>
-                        <v-col cols="3" sm="3" md="3" class="py-1">
+                        <v-col cols="3" sm="3" md="3" class="py-0">
                             <v-menu offset-y v-model="calendario" :close-on-content-click="false"
                                 transition="scale-transition" max-width="290px" min-width="290px">
                                 <template v-slot:activator="{ on, attrs }">
@@ -25,7 +28,7 @@
                     </v-row>
                     <v-row>
                         <v-col cols="12" sm="12" md="12" class="py-1">
-                            <v-text>Selecione as questões para adicionar a prova:</v-text>
+                            <span>Selecione as questões para adicionar a prova:</span>
                             <v-data-table dense show-select v-model="selecionadas" :headers="headers" :items="questoes"
                                 item-key="idQuestao" sort-by="idQuestao" :search="pesquisa"
                                 :sort-by="['descricaoQuestao', 'estadoQuestao']" :sort-desc="[false, true]"

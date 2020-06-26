@@ -3,7 +3,7 @@
 <script>
 import vm from "vue";
 import Http from "@/plugins/axios";
-import router from '@/router'
+import router from "@/router";
 
 export default {
   name: "provas",
@@ -20,14 +20,19 @@ export default {
         { text: "Nº Questões", value: "numQuestoes" },
         { text: "Ações", value: "actions", sortable: false, align: "center" }
       ],
-      provas: [],
+      provas: []
     };
   },
   created() {
     this.buscarProvas();
   },
   methods: {
-    gerenciarProva(){
+    gerenciarProva() {
+      localStorage.setItem("idQuestao", 0);
+      router.push("/provas/gerenciar");
+    },
+    editarProva(id){
+      localStorage.setItem("idQuestao", id);
       router.push("/provas/gerenciar");
     },
     buscarProvas() {

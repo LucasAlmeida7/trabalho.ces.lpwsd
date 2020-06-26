@@ -8,6 +8,7 @@ import trabalho.ces.trabalho.ces.backend.models.Prova;
 import trabalho.ces.trabalho.ces.backend.models.Questao;
 import trabalho.ces.trabalho.ces.backend.models.Resultado;
 import trabalho.ces.trabalho.ces.backend.models.Usuario;
+import trabalho.ces.trabalho.ces.backend.viewmodels.Grafico.OutputGraficoResultadoViewModel;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Prova.GridProvaViewModel;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Prova.OutputProvaViewModel;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Questao.InputQuestaoProvaViewModel;
@@ -141,6 +142,16 @@ public final class MapperRegister {
                 map().setValorObtido(source.getValorObtido());
                 map().getProvaidProva().setIdProva(source.getIdProva());
                 map().getUsuarioidUsuario().setIdUsuario(source.getIdUsuario());
+            }
+        });
+
+        // Resultado --> OutputGraficoResultadoViewModel
+        modelMapper.addMappings(new PropertyMap<Resultado, OutputGraficoResultadoViewModel>() {
+            @Override
+            protected void configure() {
+                map().setIdProva(source.getProvaidProva().getIdProva());
+                map().setNomeUsuario(source.getUsuarioidUsuario().getNomeUsuario());
+                map().setResultadoPorcentagem(source.getValorPorcentagem());
             }
         });
     }

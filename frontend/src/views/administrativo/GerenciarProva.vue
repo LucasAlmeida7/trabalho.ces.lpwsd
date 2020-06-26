@@ -21,18 +21,44 @@ export default {
         { text: "Tipo Questão", value: "nomeTipoQuestao" }
       ],
       questoes: [],
-      idProva: 7,
+      idProva: 0,
       prova: {
         dataProva: new Date().toISOString().substr(0, 10),
         questoes: []
       },
       selecionadas: [],
       calendario: false,
-      inclusao: false,
+      inclusao: false
     };
   },
   created() {
+    this.idProva = localStorage.getItem("idQuestao");
     this.buscarQuestoes();
+    if (this.idProva != 0) {
+      this.inclusao = false;
+      Http.get("prova-manager/prova/" + this.idProva, {})
+        .then(result => {
+          if (result.data != "") {
+            this.selecionadas = result.data.questoes;
+            //this.prova.dataProva = new Date(result.data.dataProva);
+          } else {
+            vm.$toast.open({
+              message: "Nenhuma questão encontrada.",
+              type: "warning"
+            });
+          }
+        })
+        .catch(err => {
+          console.log("Erro", err.response);
+          vm.$toast.open({
+            message:
+              "Ocorreu um erro ao acessar os dados, tente novamente mais tarde.",
+            type: "error"
+          });
+        });
+    } else {
+      this.inclusao = true;
+    }
   },
   methods: {
     buscarQuestoes() {
@@ -104,13 +130,20 @@ export default {
       if (!date) return null;
       const [year, month, day] = date.split("-");
       return `${day}/${month}/${year}`;
+    },
+    questoesSalvas(questoes) {
+      let items = [];
+      questoes.filter(questao =>
+        items.push({ idQuestao: questao.idQuestao })
+      );
+      return items;
     }
   },
   computed: {
     dataFormatada() {
       return this.formatDate(this.prova.dataProva);
     },
-    tituloOperacao(){
+    tituloOperacao() {
       return this.inclusao ? "Cadastrar Prova" : "Atualizar Prova";
     }
   },

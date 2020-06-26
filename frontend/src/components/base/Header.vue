@@ -12,7 +12,7 @@ export default {
   },
   methods: {
     home() {
-      router.push("/home");
+      router.push("/");
     },
     gerenciarQuestao() {
       router.push("/questoes");
@@ -23,8 +23,33 @@ export default {
     acessarQuestionario() {
       router.push("/questionario");
     },
-    acessarGrafico(){
-      router.push("/grafico");
+    acessarGraficoResultados() {
+      router.push("/grafico/resultados");
+    },
+    acessarGraficoPendentes() {
+      router.push("/grafico/pendentes");
+    },
+    logout() {
+      localStorage.removeItem("usuario");
+      router.push("/login");
+    }
+  },
+  computed: {
+    usuarioLogado() {
+      let usuario = localStorage.getItem("usuario");
+
+      if (!usuario) {
+        this.logout();
+        return {
+          idUsuario: 0,
+          nomeUsuario: "",
+          emailUsuario: "",
+          senhaUsuario: "",
+          idTipoUsuario: 0
+        };
+      }
+
+      return JSON.parse(usuario);
     }
   }
 };

@@ -57,6 +57,10 @@ public class Resultado implements Serializable {
         this.valorObtido = valorObtido;
     }
 
+    public double getValorPorcentagem(){
+        return (100 * this.getValorObtido()) / this.getProvaidProva().getNumQuestao();
+    }
+
     public Prova getProvaidProva() {
         return provaidProva;
     }

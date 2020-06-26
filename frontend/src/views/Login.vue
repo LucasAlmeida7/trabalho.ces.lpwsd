@@ -26,7 +26,9 @@
           senhaUsuario: this.senha,
         }).then(result => {
           if(result.data != ''){
-            router.push('home')
+            this.$store.state.usuario = result.data;
+            localStorage.setItem('usuario', JSON.stringify(result.data));
+            router.push("/")
           }
           else{
             vm.$toast.open({

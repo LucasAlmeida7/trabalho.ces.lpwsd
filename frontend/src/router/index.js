@@ -5,14 +5,14 @@ import admRotas from "./administrativo-rotas"
 import alunoRotas from "./aluno-rotas"
 
 Vue.use(VueRouter)
-  const routes = [
+const routes = [
   {
-    path: '/',
+    path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue')
   },
   {
-    path: '/home',
+    path: '/',
     name: 'Home',
     components: {
       header: Header,
@@ -20,13 +20,39 @@ Vue.use(VueRouter)
     },
   },
   ...admRotas,
-  ...alunoRotas
+  ...alunoRotas,
+  { path: '*', redirect: '/login' }
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const logado = localStorage.getItem('usuario');
+  const usuario = JSON.parse(logado)
+
+  const publicas = ['/login', '/cadastrar-usuario'];
+  const userRotas = ['/', '/questionario'];
+
+  let rotaPublica = publicas.includes(to.path);
+  let semAutorizacao = false;
+
+  if (logado && usuario.idTipoUsuario == 2) { 
+    semAutorizacao = !userRotas.includes(to.path);
+  }
+
+  if (!rotaPublica && !logado) {
+    return next('/login');
+  }
+
+  if (semAutorizacao && logado) {
+    return next('/');
+  }
+
+  next();
 })
 
 export default router

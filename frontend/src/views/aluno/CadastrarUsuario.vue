@@ -29,7 +29,7 @@ export default {
 
       Http.post("usuario-manager/usuario/", {
         emailUsuario: this.usuario.email,
-        idTipoUsuario: 1,
+        idTipoUsuario: 2,
         nomeUsuario: this.usuario.nome,
         senhaUsuario: this.usuario.senha
       })
@@ -83,5 +83,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" src="./CadastrarUsuario.scss" scoped></style>
