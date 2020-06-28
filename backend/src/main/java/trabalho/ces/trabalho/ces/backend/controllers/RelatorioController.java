@@ -16,7 +16,7 @@ public class RelatorioController {
     RelatorioService relatorioService;
 
     @CrossOrigin(origins = "http://localhost:8081")
-    @GetMapping("/ultimos-resultados/{id}")
+    @GetMapping("/resultados/{id}")
     public List<OutputRelatorioResultadoViewModel> UltimosResultados(@PathVariable(value="id") Integer id){
         return relatorioService.BuscarResultados(id);
     }

@@ -20,46 +20,46 @@ import java.util.List;
 public class UsuarioService {
 
     @Autowired
-    IUsuarioRepository IUsuarioRepository;
+    IUsuarioRepository usuarioRepository;
 
     @Autowired
     MapperBase mapperBase;
 
     public List<OutputUsuarioViewModel> BuscarTodos(){
         Type type = new TypeToken<ArrayList<OutputUsuarioViewModel>>() {}.getType();
-        List<OutputUsuarioViewModel> result = mapperBase.toList(IUsuarioRepository.findAll(), type);
+        List<OutputUsuarioViewModel> result = mapperBase.toList(usuarioRepository.findAll(), type);
         return result;
     }
 
     public OutputUsuarioViewModel BuscarId(long id){
-        return mapperBase.mapTo(IUsuarioRepository.findById(id), OutputUsuarioViewModel.class);
+        return mapperBase.mapTo(usuarioRepository.findById(id), OutputUsuarioViewModel.class);
     }
 
     public InputUsuarioViewModel Inserir(InputUsuarioViewModel inputUsuarioViewModel) {
-        Usuario usuarioExistente = IUsuarioRepository.findFirstByEmailUsuario(inputUsuarioViewModel.getEmailUsuario());
+        Usuario usuarioExistente = usuarioRepository.findFirstByEmailUsuario(inputUsuarioViewModel.getEmailUsuario());
 
         if (usuarioExistente != null) {
             throw new IllegalArgumentException("Já existe um usuário cadastrado para este e-mail.");
         }
 
         Usuario usuario = mapperBase.mapTo(inputUsuarioViewModel, Usuario.class);
-        IUsuarioRepository.save(usuario);
+        usuarioRepository.save(usuario);
 
         return inputUsuarioViewModel;
     }
 
     public ResponseEntity<String> Remover(long id){
 
-        if(IUsuarioRepository.findById(id) == null)
+        if(usuarioRepository.findById(id) == null)
             return new ResponseEntity<>("O usuário informado, não existe.", HttpStatus.BAD_REQUEST);
 
-        IUsuarioRepository.deleteById(id);
+        usuarioRepository.deleteById(id);
 
         return ResponseEntity.ok("Usuário removido com sucesso!");
     }
 
     public OutputUsuarioViewModel Atualizar(long id, InputUsuarioViewModel inputUsuarioViewModel) {
-        Usuario usuarioId = IUsuarioRepository.findById(id);
+        Usuario usuarioId = usuarioRepository.findById(id);
 
         if (usuarioId == null) {
             throw new IllegalArgumentException();
@@ -71,13 +71,13 @@ public class UsuarioService {
 
         Usuario usuario = mapperBase.mapTo(inputUsuarioViewModel, Usuario.class);
         usuario.setIdUsuario(id);
-        IUsuarioRepository.save(usuario);
+        usuarioRepository.save(usuario);
 
         return mapperBase.mapTo(usuario, OutputUsuarioViewModel.class);
     }
 
     public OutputUsuarioViewModel Login(LoginUsuarioViewModel loginUsuarioViewModel){
-        Usuario usuario = IUsuarioRepository.findFirstByEmailUsuarioAndSenhaUsuario(loginUsuarioViewModel.getEmailUsuario(), loginUsuarioViewModel.getSenhaUsuario());
+        Usuario usuario = usuarioRepository.findFirstByEmailUsuarioAndSenhaUsuario(loginUsuarioViewModel.getEmailUsuario(), loginUsuarioViewModel.getSenhaUsuario());
 
         //if (usuario == null) {
          //   throw new ExecutionException();

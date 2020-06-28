@@ -18,15 +18,13 @@
                 </v-list-item-icon>
                 <v-list-item-title>Home</v-list-item-title>
             </v-list-item>
-            <template v-if="usuarioLogado.idTipoUsuario == 2">
-                <v-list-item link @click="acessarQuestionario">
-                    <v-list-item-icon>
-                        <v-icon color="blue">mdi-pencil</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>Questionário</v-list-item-title>
-                </v-list-item>
-            </template>
-            <template v-else>
+            <v-list-item link @click="acessarQuestionario">
+                <v-list-item-icon>
+                    <v-icon color="blue">mdi-pencil</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>Questionário</v-list-item-title>
+            </v-list-item>
+            <template v-if="usuarioLogado.idTipoUsuario == 1">
                 <v-list-item link @click="gerenciarQuestao">
                     <v-list-item-icon>
                         <v-icon color="blue">mdi-help-circle</v-icon>
@@ -47,9 +45,33 @@
                 </v-list-item>
                 <v-list-item link @click="acessarGraficoPendentes">
                     <v-list-item-icon>
-                        <v-icon color="blue">mdi-google-analytics</v-icon>
+                        <v-icon color="blue">mdi-chart-pie</v-icon>
                     </v-list-item-icon>
                     <v-list-item-title>Gráfico Pendentes</v-list-item-title>
+                </v-list-item>
+                <v-list-item link @click="acessarRelatorioAlunos">
+                    <v-list-item-icon>
+                        <v-icon color="blue">mdi-file-document-outline</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>Relatório Alunos</v-list-item-title>
+                </v-list-item>
+                <v-list-item link @click="acessarRelatorioPendentes">
+                    <v-list-item-icon>
+                        <v-icon color="blue">mdi-file-document-outline</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>Relatório Alunos Pendentes</v-list-item-title>
+                </v-list-item>
+                <v-list-item link @click="acessarRelatorioResultados">
+                    <v-list-item-icon>
+                        <v-icon color="blue">mdi-file-document-outline</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>Relatório Resultados</v-list-item-title>
+                </v-list-item>
+                <v-list-item link @click="sobre">
+                    <v-list-item-icon>
+                        <v-icon>mdi-help</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>Sobre</v-list-item-title>
                 </v-list-item>
             </template>
         </v-list>

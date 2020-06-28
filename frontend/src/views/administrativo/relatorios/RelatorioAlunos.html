@@ -1,0 +1,22 @@
+<section>
+    <v-container class="fill-height" fluid>
+        <v-layout class="mx-auto mx-10">
+            <v-flex md12>
+                <v-toolbar flat color="white">
+                    <v-toolbar-title class="primary--text">Alunos Cadastrados</v-toolbar-title>
+                </v-toolbar>
+                <hr>
+                <v-row>
+                    <v-col cols="12" sm="12" md="12" class="text-right">
+                        <v-btn color="primary" @click="downloadPdf">Download PDF <v-icon small right>mdi-download</v-icon></v-btn>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="12" sm="12" md="12">
+                        <VueTabulator ref="tabulator" v-model="alunos" :options="options" />
+                    </v-col>
+                </v-row>
+            </v-flex>
+        </v-layout>
+    </v-container>
+</section>

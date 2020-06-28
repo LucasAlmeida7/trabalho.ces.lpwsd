@@ -17,8 +17,8 @@ public interface IUsuarioRepository extends JpaRepository<Usuario, Long> {
     List<Usuario> findByTipoUsuarioidTipoUsuarioIdTipoUsuario(Integer idTipoUsuario);
 
     @Query("SELECT u FROM Usuario u \n" +
-            "inner join Resultado r ON r.usuarioidUsuario = u.idUsuario\n" +
-            "where r.provaidProva.idProva =:idProva")
+            "where u.idUsuario NOT IN (SELECT usuarioidUsuario FROM Resultado r where r.provaidProva.idProva =:idProva) \n" +
+            "and u.tipoUsuarioidTipoUsuario.idTipoUsuario = 2 ")
     public List<Usuario> findByProvaPendente(@Param("idProva") Integer idProva);
 
 }

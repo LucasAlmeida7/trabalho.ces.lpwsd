@@ -40,7 +40,31 @@ const routes = [
             header: Header,
             default: () => import('../views/administrativo/graficos/GraficoPendentes.vue')
         },
-    }
+    },
+    {
+        path: '/relatorio/relatorio-alunos',
+        name: 'Relatório Alunos',
+        components: {
+            header: Header,
+            default: () => import('../views/administrativo/relatorios/RelatorioAlunos.vue')
+        },
+    },
+    {
+        path: '/relatorio/relatorio-pendentes',
+        name: 'Relatório Alunos Pendentes',
+        components: {
+            header: Header,
+            default: () => import('../views/administrativo/relatorios/RelatorioPendentes.vue')
+        },
+    },
+    {
+        path: '/relatorio/relatorio-resultados',
+        name: 'Relatório Resultados',
+        components: {
+            header: Header,
+            default: () => import('../views/administrativo/relatorios/RelatorioResultados.vue')
+        },
+    },
 ]
 
 export default routes;

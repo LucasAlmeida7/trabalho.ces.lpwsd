@@ -14,6 +14,9 @@ export default {
     home() {
       router.push("/");
     },
+    sobre() {
+      router.push("/sobre");
+    },
     gerenciarQuestao() {
       router.push("/questoes");
     },
@@ -29,10 +32,19 @@ export default {
     acessarGraficoPendentes() {
       router.push("/grafico/pendentes");
     },
+    acessarRelatorioAlunos() {
+      router.push("/relatorio/relatorio-alunos");
+    },
+    acessarRelatorioPendentes() {
+      router.push("/relatorio/relatorio-pendentes");
+    },
+    acessarRelatorioResultados() {
+      router.push("/relatorio/relatorio-resultados");
+    },
     logout() {
       localStorage.removeItem("usuario");
       router.push("/login");
-    },
+    }
   },
   computed: {
     usuarioLogado() {

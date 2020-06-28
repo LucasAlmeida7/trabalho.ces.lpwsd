@@ -19,9 +19,24 @@ const routes = [
       default: () => import('../views/Home.vue'),
     },
   },
+  {
+    path: '/sobre',
+    name: 'sobre',
+    components: {
+      header: Header,
+      default: () => import('../views/Sobre.vue'),
+    },
+  },
+  {
+    path: '/404',
+    name: '404',
+    components: {
+      default: () => import('../views/404.vue'),
+    },
+  },
   ...admRotas,
   ...alunoRotas,
-  { path: '*', redirect: '/login' }
+  { path: '*', redirect: '/404' }
 ]
 
 const router = new VueRouter({
@@ -40,7 +55,7 @@ router.beforeEach((to, from, next) => {
   let rotaPublica = publicas.includes(to.path);
   let semAutorizacao = false;
 
-  if (logado && usuario.idTipoUsuario == 2) { 
+  if (logado && usuario.idTipoUsuario == 2) {
     semAutorizacao = !userRotas.includes(to.path);
   }
 
