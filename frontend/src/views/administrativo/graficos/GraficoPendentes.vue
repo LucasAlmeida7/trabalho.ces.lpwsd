@@ -1,9 +1,9 @@
 <template src="./GraficoPendentes.html"></template>
 
 <script>
-import graficoPendente from "@/components/ui/GraficoPendente.vue";
 import vm from "vue";
 import Http from "@/plugins/axios";
+import graficoPendente from "@/components/ui/GraficoPendente.vue";
 
 export default {
   name: "grafico-pendentes",

@@ -32,7 +32,7 @@ export default {
     logout() {
       localStorage.removeItem("usuario");
       router.push("/login");
-    }
+    },
   },
   computed: {
     usuarioLogado() {

@@ -223,6 +223,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" src="./Questoes.scss" scoped></style>
-

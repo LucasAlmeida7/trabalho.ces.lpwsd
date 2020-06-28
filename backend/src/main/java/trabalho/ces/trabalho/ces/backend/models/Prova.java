@@ -74,7 +74,7 @@ public class Prova implements Serializable {
         return questaoList;
     }
 
-    public Integer getNumQuestao() { return this.questaoList.size(); }
+    public Integer getNumeroQuestoes() { return this.questaoList.size(); }
 
     public void setQuestaoList(List<Questao> questaoList) {
         this.questaoList = questaoList;

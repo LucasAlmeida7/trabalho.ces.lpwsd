@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     buscarDados() {
-      Http.get("resultado-manager/resultado/prova/" + this.idProva, {})
+      Http.get("grafico-manager/porcentagem-completo/" + this.idProva, {})
         .then(result => {
           if (result.data != "") {
             this.data = [result.data.concluido, result.data.pendente];
@@ -48,7 +48,7 @@ export default {
       return {
         hoverBackgroundColor: "red",
         hoverBorderWidth: 10,
-        labels: ["Concluído", "Pendente"],
+        labels: ["Concluído %", "Pendente %"],
         datasets: [
           {
             label: "Data One",

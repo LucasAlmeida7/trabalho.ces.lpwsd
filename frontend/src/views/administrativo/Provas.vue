@@ -54,5 +54,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" src="./Provas.scss" scoped></style>

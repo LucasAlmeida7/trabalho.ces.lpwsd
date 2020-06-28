@@ -15,6 +15,7 @@ import trabalho.ces.trabalho.ces.backend.viewmodels.Questao.InputQuestaoProvaVie
 import trabalho.ces.trabalho.ces.backend.viewmodels.Questao.GridQuestaoViewModel;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Questao.InputQuestaoViewModel;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Questao.OutputQuestaoViewModel;
+import trabalho.ces.trabalho.ces.backend.viewmodels.Relatorio.OutputRelatorioResultadoViewModel;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Resultado.InputResultadoViewModel;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Usuario.InputUsuarioViewModel;
 import trabalho.ces.trabalho.ces.backend.viewmodels.Usuario.OutputUsuarioViewModel;
@@ -55,7 +56,6 @@ public final class MapperRegister {
             protected void configure() {
                 map().setNomeUsuario(source.getNomeUsuario());
                 map().setEmailUsuario(source.getEmailUsuario());
-                map().setSenhaUsuario(source.getSenhaUsuario());
                 map().setIdTipoUsuario((source.getTipoUsuarioidTipoUsuario().getIdTipoUsuario()));
             }
         });
@@ -128,7 +128,7 @@ public final class MapperRegister {
             @Override
             protected void configure() {
                 map().setDataProva(source.getDataString());
-                map().setNumQuestoes(source.getNumQuestao());
+                map().setNumQuestoes(source.getNumeroQuestoes());
             }
         });
     }
@@ -152,6 +152,16 @@ public final class MapperRegister {
                 map().setIdProva(source.getProvaidProva().getIdProva());
                 map().setNomeUsuario(source.getUsuarioidUsuario().getNomeUsuario());
                 map().setResultadoPorcentagem(source.getValorPorcentagem());
+            }
+        });
+
+        // Resultado --> OutputRelatorioResultadoViewModel
+        modelMapper.addMappings(new PropertyMap<Resultado, OutputRelatorioResultadoViewModel>() {
+            @Override
+            protected void configure() {
+                map().setNomeUsuario(source.getUsuarioidUsuario().getNomeUsuario());
+                map().setValorObtido(source.getValorObtido());
+                map().setNumeroQuestoes(source.getProvaidProva().getNumeroQuestoes());
             }
         });
     }

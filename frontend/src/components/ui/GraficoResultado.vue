@@ -14,7 +14,10 @@ export default {
     barColor: {
       type: String,
       default: "#272424"
-    }
+    },
+    idProva: {
+      required: true
+    },
   },
   data() {
     return {
@@ -54,15 +57,19 @@ export default {
   },
   methods: {
     buscarDados() {
-      Http.get("grafico-manager/resultados", {})
+      Http.get("grafico-manager/ultimos-resultados/" + this.idProva, {})
         .then(result => {
           if (result.data != "") {
             this.labels = result.data.map(
               x => "Prova " + x.idProva + " | " + x.nomeUsuario
             );
             this.data = result.data.map(x => x.resultadoPorcentagem);
-            this.renderChart(this.datacollection, this.options);
           }
+          else{
+            this.labels = [];
+            this.data = [];
+          }
+          this.renderChart(this.datacollection, this.options);
         })
         .catch(err => {
           console.log("Erro", err.response);
@@ -89,6 +96,11 @@ export default {
           }
         ]
       };
+    }
+  },
+  watch: {
+    idProva() {
+      this.buscarDados();
     }
   }
 };

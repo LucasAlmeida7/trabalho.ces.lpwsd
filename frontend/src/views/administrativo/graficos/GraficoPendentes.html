@@ -1,12 +1,14 @@
 <section>
     <v-container class="fill-height" fluid>
-        <v-layout class="mx-auto mx-10 text-center">
+        <v-layout class="mx-auto mx-10">
             <v-flex md12>
                 <v-toolbar flat color="white">
                     <v-toolbar-title>Alunos Pendentes Realização Prova</v-toolbar-title>
                 </v-toolbar>
+                <hr>
                 <v-row>
-                    <v-col cols="2" sm="2" md="2" >
+                    <v-col cols="2" sm="2" md="2">
+                        <span>ID Prova:</span>
                         <v-select solo dense v-model.number="idProva" :items="provas" item-value="idProva"
                             item-text="idProva" label="Prova">
                         </v-select>

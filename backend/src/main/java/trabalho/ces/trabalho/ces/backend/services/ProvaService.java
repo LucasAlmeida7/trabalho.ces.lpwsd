@@ -14,9 +14,7 @@ import trabalho.ces.trabalho.ces.backend.viewmodels.Questao.GridQuestaoViewModel
 import trabalho.ces.trabalho.ces.backend.viewmodels.Questao.OutputQuestaoViewModel;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Component(value = "provaService")
 public class ProvaService {
@@ -50,6 +48,7 @@ public class ProvaService {
         if(inputProvaViewModel.getQuestoes().size() == 0)
             throw new IllegalArgumentException("Nenhuma questão foi informada.");
 
+        inputProvaViewModel.setDataProva(CorrigirData(inputProvaViewModel.getDataProva()));
         Prova prova = new Prova();
         prova.setDataProva(inputProvaViewModel.getDataProva());
         Type type = new TypeToken<ArrayList<Questao>>() {}.getType();
@@ -59,6 +58,7 @@ public class ProvaService {
     }
 
     public OutputProvaViewModel Atualizar(Integer id, InputProvaViewModel inputProvaViewModel) {
+        inputProvaViewModel.setDataProva(CorrigirData(inputProvaViewModel.getDataProva()));
         Prova prova = mapperBase.mapTo(inputProvaViewModel, Prova.class);
         Type type = new TypeToken<ArrayList<Questao>>() {}.getType();
         prova.setQuestaoList(mapperBase.toList(inputProvaViewModel.getQuestoes(), type));
@@ -66,5 +66,12 @@ public class ProvaService {
         provaRepository.save(prova);
 
         return mapperBase.mapTo(prova, OutputProvaViewModel.class);
+    }
+
+    public Date CorrigirData(Date data){
+        Calendar c = Calendar.getInstance();
+        c.setTime(data);
+        c.add(Calendar.DATE, 1);
+        return c.getTime();
     }
 }

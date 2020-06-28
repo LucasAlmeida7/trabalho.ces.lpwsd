@@ -23,7 +23,7 @@ export default {
       questoes: [],
       idProva: 0,
       prova: {
-        dataProva: new Date().toISOString().substr(0, 10),
+        dataProva: "",
         questoes: []
       },
       selecionadas: [],
@@ -40,7 +40,7 @@ export default {
         .then(result => {
           if (result.data != "") {
             this.selecionadas = result.data.questoes;
-            //this.prova.dataProva = new Date(result.data.dataProva);
+            this.prova.dataProva = this.addDays(new Date(result.data.dataProva.substring(0, 10)));
           } else {
             vm.$toast.open({
               message: "Nenhuma questão encontrada.",
@@ -58,6 +58,7 @@ export default {
         });
     } else {
       this.inclusao = true;
+      this.prova.dataProva = new Date().toISOString().substr(0, 10)
     }
   },
   methods: {
@@ -127,16 +128,19 @@ export default {
       router.back();
     },
     formatDate(date) {
-      if (!date) return null;
+      if (!date || date == "") return null;
       const [year, month, day] = date.split("-");
       return `${day}/${month}/${year}`;
     },
     questoesSalvas(questoes) {
       let items = [];
-      questoes.filter(questao =>
-        items.push({ idQuestao: questao.idQuestao })
-      );
+      questoes.filter(questao => items.push({ idQuestao: questao.idQuestao }));
       return items;
+    },
+    addDays(date) {
+      var result = new Date(date);
+      result.setDate(result.getDate() - 1);
+      return result.toISOString().substr(0, 10);
     }
   },
   computed: {
@@ -158,5 +162,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" src="./GerenciarProva.scss" scoped></style>

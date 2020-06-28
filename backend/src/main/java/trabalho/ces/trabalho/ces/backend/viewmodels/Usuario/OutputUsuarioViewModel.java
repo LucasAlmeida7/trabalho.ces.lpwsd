@@ -12,9 +12,6 @@ public class OutputUsuarioViewModel {
     @ApiModelProperty(value = "E-mail do usuário")
     private String emailUsuario;
 
-    @ApiModelProperty(value = "Senha do usuário")
-    private String senhaUsuario;
-
     @ApiModelProperty(value = "Id tipo do usuário")
     private int idTipoUsuario;
 
@@ -40,14 +37,6 @@ public class OutputUsuarioViewModel {
 
     public void setEmailUsuario(String emailUsuario) {
         this.emailUsuario = emailUsuario;
-    }
-
-    public String getSenhaUsuario() {
-        return senhaUsuario;
-    }
-
-    public void setSenhaUsuario(String senhaUsuario) {
-        this.senhaUsuario = senhaUsuario;
     }
 
     public int getIdTipoUsuario() {
